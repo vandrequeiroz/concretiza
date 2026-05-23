@@ -294,7 +294,7 @@ function uploadImages(int $projectId): array {
 
     if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
 
-    $files = $_FILES['images'] ?? [];
+    $files = $_FILES['images[]'] ?? $_FILES['images'] ?? [];
     if (empty($files['name'])) return [];
 
     // normalize single file to array
