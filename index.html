@@ -1,0 +1,623 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <link rel="icon" type="image/jpeg" href="imagens/favicon-concretiza.jpg">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Concretiza Engenharia — Projetos e Obras em São Roque/SP</title>
+  <meta name="description" content="Empresa de engenharia civil fundada em 2005. Projetos arquitetônicos, hidráulicos, elétricos e execução de obras em São Roque e região.">
+
+  <!-- Fonts -->
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+
+  <!-- Libraries -->
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.css">
+
+  <!-- Site styles -->
+  <link rel="stylesheet" href="style.css">
+</head>
+<body>
+
+<!-- ═══ LOADING SCREEN ══════════════════════════════ -->
+<div id="loader" aria-hidden="true">
+  <div class="ldr-bg-grid"></div>
+
+  <div class="ldr-inner">
+    <!-- Logo -->
+    <div class="ldr-logo">
+      <img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia">
+    </div>
+
+    <!-- Prédio sendo construído andar por andar -->
+    <div class="ldr-building" aria-hidden="true">
+      <div class="ldr-floors">
+        <div class="ldr-floor ldr-f1"></div>
+        <div class="ldr-floor ldr-f2"></div>
+        <div class="ldr-floor ldr-f3"></div>
+        <div class="ldr-floor ldr-f4"></div>
+        <div class="ldr-floor ldr-f5"></div>
+      </div>
+    </div>
+
+    <p class="ldr-text">CONSTRUINDO CONFIANÇA</p>
+  </div>
+</div>
+
+<!-- MOBILE TOGGLE -->
+<button class="menu-btn" id="menuBtn" aria-label="Menu">
+  <span></span><span></span><span></span>
+</button>
+
+<!-- OVERLAY -->
+<div class="sidebar-overlay" id="sidOv"></div>
+
+<!-- SIDEBAR -->
+<aside class="sidebar" id="sidebar">
+  <div class="sidebar-logo">
+    <a href="#home"><img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia"></a>
+  </div>
+  <nav class="sidebar-nav">
+    <a href="#home"        class="active"><i class="ti ti-home"></i>Início</a>
+    <a href="#sobre">                     <i class="ti ti-building"></i>Quem Somos</a>
+    <a href="#servicos">                  <i class="ti ti-compass"></i>Serviços</a>
+    <a href="#projetos">                  <i class="ti ti-stack-2"></i>Projetos</a>
+    <a href="#localizacao">               <i class="ti ti-map-pin"></i>Localização</a>
+    <a href="#contato">                   <i class="ti ti-mail"></i>Contato</a>
+  </nav>
+  <a class="sidebar-wa"
+     href="https://wa.me/5511963754627?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+     target="_blank" rel="noopener">
+    <i class="fab fa-whatsapp"></i>
+    <div class="sidebar-wa-txt">
+      <span>Fale conosco</span>
+      <strong>(11) 9 6375-4627</strong>
+    </div>
+  </a>
+</aside>
+
+<!-- MAIN CONTENT -->
+<main class="main">
+
+  <!-- ═══ HERO ════════════════════════════════════ -->
+  <section id="home" style="padding:0">
+    <div class="swiper hero-swiper" id="heroSwiper">
+      <div class="swiper-wrapper">
+
+        <div class="swiper-slide">
+          <div class="slide-bg" style="background-image:url('imagens/slide/slide1.png')"></div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <div class="slide-label">Obras</div>
+            <h1 class="slide-title">Execução e Administração de Obras</h1>
+            <p class="slide-desc">Soluções completas em engenharia civil, do projeto à entrega, com qualidade e comprometimento em cada etapa.</p>
+            <a href="#contato" class="slide-cta">Solicitar Orçamento <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-bg" style="background-image:url('imagens/slide/slide2.png')"></div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <div class="slide-label">Galeria de Projetos</div>
+            <h1 class="slide-title">Conheça Nossos Projetos</h1>
+            <p class="slide-desc">Projetos residenciais, comerciais e industriais desenvolvidos com excelência técnica e visão criativa.</p>
+            <a href="#projetos" class="slide-cta">Ver Projetos <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+        <div class="swiper-slide">
+          <div class="slide-bg" style="background-image:url('imagens/galeria/pexels-1460648-3172740.jpg')"></div>
+          <div class="slide-overlay"></div>
+          <div class="slide-content">
+            <div class="slide-label">Desde 2005</div>
+            <h1 class="slide-title">Experiência que Constrói Confiança</h1>
+            <p class="slide-desc">Mais de 19 anos atuando na construção civil, industrial, comercial e residencial em São Roque e região.</p>
+            <a href="#sobre" class="slide-cta">Conheça a Empresa <i class="fas fa-arrow-right"></i></a>
+          </div>
+        </div>
+
+      </div>
+
+      <div class="hero-counter">
+        <span class="hero-counter-n" id="hCur">01</span>
+        <span style="color:rgba(255,255,255,.28)">/</span>
+        <span>03</span>
+      </div>
+      <div class="hero-nav">
+        <div class="hero-nav-btn" id="hPrev"><i class="fas fa-chevron-left"></i></div>
+        <div class="hero-nav-btn" id="hNext"><i class="fas fa-chevron-right"></i></div>
+      </div>
+      <div class="scroll-hint">
+        <div class="scroll-line"></div>
+        <span>Scroll</span>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SOBRE ══════════════════════════════════════ -->
+  <section id="sobre" class="sec">
+    <div class="about-grid">
+      <div class="about-img-wrap" data-aos="fade-right">
+        <img src="imagens/concre_escritorio.jpg" alt="Concretiza Engenharia">
+        <div class="about-accent"></div>
+      </div>
+      <div data-aos="fade-left">
+        <span class="sec-lbl">Quem Somos</span>
+        <h2 class="sec-title">Sobre a Concretiza</h2>
+        <div class="sec-divider"></div>
+        <p class="sec-text">
+          Empresa fundada em 2005, atua na área da construção civil, industrial, comercial e residencial.
+          Busca constantemente a realização de trabalhos de alta qualidade de modo a superar as expectativas
+          de nossos clientes e parceiros de negócios.
+        </p>
+        <br>
+        <p class="sec-text">
+          Atendemos com soluções confiáveis desde a geração de desenhos, especificações técnicas e lista de
+          materiais até informações precisas das etapas do empreendimento.
+        </p>
+        <br>
+        <p class="sec-text">
+          A CONCRETIZA tem a constante preocupação em manter sua equipe treinada e estruturada, buscando
+          inovações e tecnologia para oferecer excelência em sua prestação de serviços.
+        </p>
+        <div class="about-stats">
+          <div class="about-stat"><div class="n">+19</div><div class="l">Anos de Mercado</div></div>
+          <div class="about-stat"><div class="n">+100</div><div class="l">Projetos Entregues</div></div>
+          <div class="about-stat"><div class="n">4</div><div class="l">Áreas de Atuação</div></div>
+          <div class="about-stat"><div class="n">100%</div><div class="l">Comprometimento</div></div>
+        </div>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ SERVIÇOS ════════════════════════════════════ -->
+  <section id="servicos" class="sec">
+    <div class="sec-center" style="max-width:580px;margin:0 auto">
+      <span class="sec-lbl" data-aos="fade-up">O que fazemos</span>
+      <h2 class="sec-title" data-aos="fade-up" data-aos-delay="80">Nossos Serviços</h2>
+      <div class="sec-divider" data-aos="fade-up" data-aos-delay="120"></div>
+      <p class="sec-text" data-aos="fade-up" data-aos-delay="160">
+        Soluções completas em engenharia, do projeto executivo à entrega final da obra.
+      </p>
+    </div>
+    <div class="svc-grid">
+      <div class="svc-card" data-aos="fade-up">
+        <div class="svc-icon"><i class="fas fa-drafting-compass"></i></div>
+        <h3>Projeto Arquitetônico</h3>
+        <p>Elaboração de projetos residenciais, comerciais e industriais com documentação técnica completa para aprovação em prefeitura.</p>
+      </div>
+      <div class="svc-card" data-aos="fade-up" data-aos-delay="80">
+        <div class="svc-icon"><i class="fas fa-water"></i></div>
+        <h3>Projeto Hidráulico</h3>
+        <p>Projetos hidrossanitários completos — água fria, quente, esgoto e drenagem pluvial — conforme normas técnicas vigentes.</p>
+      </div>
+      <div class="svc-card" data-aos="fade-up" data-aos-delay="160">
+        <div class="svc-icon"><i class="fas fa-bolt"></i></div>
+        <h3>Projeto Elétrico</h3>
+        <p>Projetos elétricos residenciais e industriais: dimensionamento de cargas, quadros de distribuição e laudos para concessionária.</p>
+      </div>
+      <div class="svc-card" data-aos="fade-up" data-aos-delay="240">
+        <div class="svc-icon"><i class="fas fa-hard-hat"></i></div>
+        <h3>Execução e Adm. de Obras</h3>
+        <p>Gerenciamento completo da obra, do planejamento à entrega das chaves, com controle rigoroso de prazo, qualidade e custo.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ DIFERENCIAIS ════════════════════════════════ -->
+  <section id="diferenciais" class="sec">
+    <div class="sec-center" style="max-width:560px;margin:0 auto;position:relative">
+      <span class="sec-lbl" data-aos="fade-up">Por que nos escolher</span>
+      <h2 class="sec-title" data-aos="fade-up" data-aos-delay="80">Nossos Diferenciais</h2>
+      <div class="sec-divider" data-aos="fade-up" data-aos-delay="120"></div>
+    </div>
+    <div class="dif-grid">
+      <div class="dif-item" data-aos="fade-up">
+        <i class="fas fa-certificate"></i>
+        <h3>Qualidade Garantida</h3>
+        <p>Melhores materiais e técnicas construtivas para assegurar durabilidade e excelência em cada projeto.</p>
+      </div>
+      <div class="dif-item" data-aos="fade-up" data-aos-delay="80">
+        <i class="fas fa-clock"></i>
+        <h3>Prazo no Cronograma</h3>
+        <p>Cumprimos rigorosamente os prazos com planejamento detalhado e acompanhamento constante de cada etapa.</p>
+      </div>
+      <div class="dif-item" data-aos="fade-up" data-aos-delay="160">
+        <i class="fas fa-users"></i>
+        <h3>Equipe Especializada</h3>
+        <p>Profissionais treinados e atualizados com as inovações do setor, garantindo soluções técnicas de alto nível.</p>
+      </div>
+      <div class="dif-item" data-aos="fade-up">
+        <i class="fas fa-handshake"></i>
+        <h3>Transparência Total</h3>
+        <p>Relatórios periódicos, controle financeiro detalhado e comunicação direta e honesta com o cliente.</p>
+      </div>
+      <div class="dif-item" data-aos="fade-up" data-aos-delay="80">
+        <i class="fas fa-leaf"></i>
+        <h3>Sustentabilidade</h3>
+        <p>Soluções construtivas que respeitam o meio ambiente com uso consciente de recursos e técnicas sustentáveis.</p>
+      </div>
+      <div class="dif-item" data-aos="fade-up" data-aos-delay="160">
+        <i class="fas fa-shield-alt"></i>
+        <h3>Segurança em Obra</h3>
+        <p>Normas de segurança do trabalho rigorosamente aplicadas para proteger nossa equipe e todos os envolvidos.</p>
+      </div>
+    </div>
+  </section>
+
+  <!-- ═══ PROJETOS ════════════════════════════════════ -->
+  <section id="projetos" class="sec">
+    <div class="proj-header">
+      <div>
+        <span class="sec-lbl" data-aos="fade-up">Portfólio</span>
+        <h2 class="sec-title" data-aos="fade-up" data-aos-delay="80">Conheça Alguns de<br>Nossos Projetos</h2>
+        <div class="sec-divider" data-aos="fade-up" data-aos-delay="120"></div>
+      </div>
+      <p class="sec-text" style="max-width:340px" data-aos="fade-up" data-aos-delay="160">
+        Uma seleção de projetos que demonstram nossa capacidade técnica e criatividade.
+      </p>
+    </div>
+
+    <div class="proj-grid" id="homeProjGrid">
+      <!-- carregado via API -->
+    </div>
+
+    <div class="proj-ver-mais" data-aos="fade-up">
+      <a href="/projetos.html" class="btn-ver-mais">
+        Ver Mais Projetos <i class="fas fa-arrow-right"></i>
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ LOCALIZAÇÃO ══════════════════════════════════ -->
+  <section id="localizacao" class="sec">
+    <div class="sec-center" style="max-width:560px;margin:0 auto">
+      <span class="sec-lbl" data-aos="fade-up">Onde Estamos</span>
+      <h2 class="sec-title" data-aos="fade-up" data-aos-delay="80">Faça-nos Uma Visita</h2>
+      <div class="sec-divider" data-aos="fade-up" data-aos-delay="120"></div>
+    </div>
+    <div style="display:flex;justify-content:center;margin-top:40px" data-aos="fade-up">
+      <a class="btn-map"
+         href="https://www.google.com/maps/search/Pra%C3%A7a+da+Rep%C3%BAblica+189+S%C3%A3o+Roque+SP"
+         target="_blank" rel="noopener">
+        <i class="fas fa-map-marked-alt"></i> Ver no Mapa
+      </a>
+    </div>
+  </section>
+
+  <!-- ═══ CONTATO ═════════════════════════════════════ -->
+  <section id="contato" class="sec">
+    <div class="sec-center" style="max-width:560px;margin:0 auto">
+      <span class="sec-lbl" data-aos="fade-up">Entre em Contato</span>
+      <h2 class="sec-title" data-aos="fade-up" data-aos-delay="80">Solicite um Orçamento</h2>
+      <div class="sec-divider" data-aos="fade-up" data-aos-delay="120"></div>
+      <p class="sec-text" style="color:rgba(255,255,255,.55)" data-aos="fade-up" data-aos-delay="160">
+        Preencha o formulário e entraremos em contato o mais breve possível.
+      </p>
+    </div>
+    <div class="ct-grid">
+      <form class="ct-form" id="ctForm"
+            action="https://formsubmit.co/projetos@concretizaengenharia.com.br"
+            method="POST" data-aos="fade-right">
+        <input type="hidden" name="_subject"  value="Novo contato — Concretiza Engenharia">
+        <input type="hidden" name="_captcha"  value="false">
+        <input type="hidden" name="_template" value="table">
+        <div class="form-row">
+          <div class="fg"><label>Nome</label><input type="text"  name="nome"     placeholder="Seu nome" required></div>
+          <div class="fg"><label>Telefone</label><input type="tel" name="telefone" placeholder="(11) 99999-9999"></div>
+        </div>
+        <div class="fg"><label>E-mail</label><input type="email" name="email" placeholder="seu@email.com" required></div>
+        <div class="fg">
+          <label>Serviço de Interesse</label>
+          <select name="servico">
+            <option value="">Selecione um serviço</option>
+            <option>Projeto Arquitetônico</option>
+            <option>Projeto Hidráulico</option>
+            <option>Projeto Elétrico</option>
+            <option>Execução e Administração de Obras</option>
+            <option>Consultoria Técnica</option>
+            <option>Outro</option>
+          </select>
+        </div>
+        <div class="fg"><label>Mensagem</label><textarea name="mensagem" placeholder="Descreva seu projeto..." required></textarea></div>
+        <button type="submit" class="btn-send" id="submitBtn">
+          <i class="fas fa-paper-plane"></i> Enviar Mensagem
+        </button>
+      </form>
+      <div class="ct-info" data-aos="fade-left">
+        <div class="ct-det"><i class="fas fa-phone-alt"></i><div><strong>(11) 4712-8099</strong><span>Telefone Fixo — Seg a Sex, 8h às 18h</span></div></div>
+        <div class="ct-det"><i class="fab fa-whatsapp"></i><div><strong>(11) 9 6375-4627</strong><span>WhatsApp — Atendimento rápido</span></div></div>
+        <div class="ct-det"><i class="fas fa-envelope"></i><div><strong>projetos@concretizaengenharia.com.br</strong><span>Respondemos em até 24h</span></div></div>
+        <div class="ct-det"><i class="fas fa-map-marker-alt"></i><div><strong>Praça da República, 189 — Centro</strong><span>São Roque/SP — Visitas com agendamento</span></div></div>
+        <a class="wa-btn"
+           href="https://wa.me/5511963754627?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+           target="_blank" rel="noopener">
+          <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
+        </a>
+      </div>
+    </div>
+  </section>
+
+  <!-- FOOTER -->
+  <footer>
+    <p>© <span id="footYear"></span> Concretiza Engenharia. Todos os direitos reservados.</p>
+    <div class="foot-links">
+      <a href="#home">Início</a>
+      <a href="#sobre">Quem Somos</a>
+      <a href="#projetos">Projetos</a>
+      <a href="#contato">Contato</a>
+    </div>
+  </footer>
+
+</main>
+
+<!-- ═══ PROJECT MODAL ══════════════════════════════ -->
+<div class="modal-wrap" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mTitle">—</div>
+        <div class="modal-desc"  id="mDesc">—</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-gal">
+      <img src="" alt="" class="modal-main" id="mMain" onclick="openLb(curThumb)">
+      <div class="modal-thumbs" id="mThumbs"></div>
+    </div>
+  </div>
+</div>
+
+<!-- ═══ LIGHTBOX ═══════════════════════════════════ -->
+<div class="lb" id="lb">
+  <button class="lb-close" onclick="closeLb()"><i class="fas fa-times"></i></button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <img src="" alt="" id="lbImg">
+  <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<!-- MOBILE BOTTOM BAR -->
+<div class="mob-bar">
+  <div class="mob-bar-inner">
+    <a class="mob-bar-btn" href="#contato"><i class="fas fa-envelope"></i> Orçamento</a>
+    <a class="mob-bar-btn"
+       href="https://wa.me/5511963754627?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
+       target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
+  </div>
+</div>
+
+<!-- SCRIPTS -->
+<script src="https://cdn.jsdelivr.net/npm/swiper@11/swiper-bundle.min.js"></script>
+<script>
+// ── LOADING SCREEN ──────────────────────────────────
+(function () {
+  const loader = document.getElementById('loader');
+  const MIN_MS = 2400; // tempo mínimo de exibição
+  const start  = Date.now();
+
+  function hideLoader() {
+    const elapsed = Date.now() - start;
+    const remaining = Math.max(0, MIN_MS - elapsed);
+    setTimeout(() => {
+      loader.classList.add('ldr-out');
+      loader.addEventListener('transitionend', () => loader.remove(), { once: true });
+    }, remaining);
+  }
+
+  if (document.readyState === 'complete') {
+    hideLoader();
+  } else {
+    window.addEventListener('load', hideLoader);
+  }
+})();
+
+// ── ANO DINÂMICO NO RODAPÉ ──────────────────────────
+document.getElementById('footYear').textContent = new Date().getFullYear();
+
+// ── PROJETOS VIA API ────────────────────────────────
+let PROJECTS = [];
+let curProj  = null;
+let curThumb = 0;
+
+function imgUrl(filename) { return `/uploads/${filename}`; }
+
+function thumbOf(p) {
+  if (p.featured_image) {
+    const found = p.images.find(i => i.filename === p.featured_image);
+    if (found) return imgUrl(found.filename);
+  }
+  return p.images.length ? imgUrl(p.images[0].filename) : '';
+}
+
+function buildCard(p, idx, delay) {
+  const thumb = thumbOf(p);
+  const card  = document.createElement('div');
+  card.className = 'proj-card';
+  card.setAttribute('data-aos', 'fade-up');
+  if (delay) card.setAttribute('data-aos-delay', delay);
+  card.onclick = () => openModal(idx);
+  card.innerHTML = `
+    <img class="proj-card-img" src="${thumb}" alt="${p.name}" loading="lazy">
+    <div class="proj-card-ov"></div>
+    <div class="proj-card-body">
+      <div class="proj-tag">${p.category || 'Projeto'}</div>
+      <div class="proj-name">${p.name}</div>
+      <div class="proj-arrow">Ver Projeto <i class="fas fa-arrow-right"></i></div>
+    </div>`;
+  return card;
+}
+
+async function loadHomeProjects() {
+  try {
+    PROJECTS = await fetch('/api/projects').then(r => r.json());
+    const grid  = document.getElementById('homeProjGrid');
+    const shown = PROJECTS.slice(0, 6);
+    grid.innerHTML = '';
+    const delays = [0, 80, 160, 0, 80, 160];
+    shown.forEach((p, i) => grid.appendChild(buildCard(p, i, delays[i])));
+
+    // re-observar os novos elementos para animação
+    if (window.__aoObserver) {
+      grid.querySelectorAll('[data-aos]').forEach(el => window.__aoObserver.observe(el));
+    }
+  } catch(e) {
+    console.warn('Erro ao carregar projetos:', e);
+  }
+}
+
+function openModal(i) {
+  const p  = PROJECTS[i];
+  if (!p) return;
+  curProj  = p;
+  curThumb = 0;
+  document.getElementById('mTitle').textContent = p.name;
+  document.getElementById('mDesc').textContent  = p.description || '';
+  const imgs = p.images.map(im => imgUrl(im.filename));
+  document.getElementById('mMain').src = imgs[0] || '';
+
+  const tc = document.getElementById('mThumbs');
+  tc.innerHTML = '';
+  imgs.forEach((src, j) => {
+    const img     = document.createElement('img');
+    img.src       = src;
+    img.alt       = p.name;
+    img.className = 'modal-thumb' + (j === 0 ? ' on' : '');
+    img.onclick   = () => pickThumb(j);
+    tc.appendChild(img);
+  });
+
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function pickThumb(j) {
+  curThumb = j;
+  const imgs = curProj.images.map(im => imgUrl(im.filename));
+  const main = document.getElementById('mMain');
+  main.style.opacity = '0';
+  setTimeout(() => { main.src = imgs[j]; main.style.opacity = '1'; }, 180);
+  document.querySelectorAll('.modal-thumb').forEach((el, k) => el.classList.toggle('on', k === j));
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+function openLb(j) {
+  curThumb = j;
+  const imgs = curProj.images.map(im => imgUrl(im.filename));
+  document.getElementById('lbImg').src = imgs[j];
+  document.getElementById('lb').classList.add('on');
+}
+function closeLb() { document.getElementById('lb').classList.remove('on'); }
+function lbNav(d) {
+  const imgs = curProj.images.map(im => imgUrl(im.filename));
+  curThumb = (curThumb + d + imgs.length) % imgs.length;
+  document.getElementById('lbImg').src = imgs[curThumb];
+}
+
+loadHomeProjects();
+
+document.getElementById('modal').addEventListener('click', e => {
+  if (e.target === document.getElementById('modal')) closeModal();
+});
+document.getElementById('lb').addEventListener('click', e => {
+  if (e.target === document.getElementById('lb')) closeLb();
+});
+document.addEventListener('keydown', e => {
+  if (e.key === 'Escape')     { closeLb(); closeModal(); }
+  if (e.key === 'ArrowLeft')  lbNav(-1);
+  if (e.key === 'ArrowRight') lbNav(1);
+});
+
+// ── HERO SWIPER ─────────────────────────────────────
+const hero = new Swiper('#heroSwiper', {
+  loop: true,
+  autoplay: { delay: 6500, disableOnInteraction: false },
+  speed: 1000,
+  effect: 'fade',
+  fadeEffect: { crossFade: true },
+  on: {
+    slideChange() {
+      document.getElementById('hCur').textContent =
+        String(this.realIndex + 1).padStart(2, '0');
+    }
+  }
+});
+document.getElementById('hPrev').addEventListener('click', () => hero.slidePrev());
+document.getElementById('hNext').addEventListener('click', () => hero.slideNext());
+
+// ── SIDEBAR ─────────────────────────────────────────
+const menuBtn = document.getElementById('menuBtn');
+const sidebar = document.getElementById('sidebar');
+const sidOv   = document.getElementById('sidOv');
+
+function toggleSid() {
+  const open = sidebar.classList.toggle('open');
+  menuBtn.classList.toggle('open', open);
+  sidOv.classList.toggle('on', open);
+}
+function closeSid() {
+  sidebar.classList.remove('open');
+  menuBtn.classList.remove('open');
+  sidOv.classList.remove('on');
+}
+menuBtn.addEventListener('click', toggleSid);
+sidOv.addEventListener('click', closeSid);
+document.querySelectorAll('.sidebar-nav a').forEach(a =>
+  a.addEventListener('click', () => { if (window.innerWidth < 768) closeSid(); })
+);
+
+// ── SCROLL SPY ──────────────────────────────────────
+const navLinks = document.querySelectorAll('.sidebar-nav a');
+const io = new IntersectionObserver(entries => {
+  entries.forEach(e => {
+    if (e.isIntersecting) {
+      navLinks.forEach(a => a.classList.toggle('active', a.getAttribute('href') === '#' + e.target.id));
+    }
+  });
+}, { threshold: 0.3, rootMargin: '-10% 0px -40% 0px' });
+document.querySelectorAll('section[id]').forEach(s => io.observe(s));
+
+// ── ANIMAÇÕES DE SCROLL ──────────────────────────────
+// IntersectionObserver custom — sem dependência de biblioteca
+(function () {
+  if (window.innerWidth < 480) {
+    // Em mobile pequeno: exibe tudo imediatamente
+    document.querySelectorAll('[data-aos]').forEach(el => {
+      el.style.opacity = '1';
+      el.style.transform = 'none';
+      el.style.transition = 'none';
+    });
+    return;
+  }
+
+  const observer = new IntersectionObserver((entries) => {
+    entries.forEach(entry => {
+      if (!entry.isIntersecting) return;
+      entry.target.classList.add('is-visible');
+      observer.unobserve(entry.target);
+    });
+  }, {
+    threshold: 0.08,
+    rootMargin: '0px 0px -48px 0px'
+  });
+
+  document.querySelectorAll('[data-aos]').forEach(el => observer.observe(el));
+  window.__aoObserver = observer;
+})();
+
+// ── FORMULÁRIO ──────────────────────────────────────
+document.getElementById('ctForm').addEventListener('submit', function () {
+  const b = document.getElementById('submitBtn');
+  b.classList.add('loading');
+  b.innerHTML = '<i class="fas fa-spinner fa-spin"></i> Enviando...';
+});
+</script>
+</body>
+</html>

@@ -1,0 +1,361 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Projetos — Concretiza Engenharia</title>
+  <link rel="icon" type="image/jpeg" href="imagens/favicon-concretiza.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Open+Sans:wght@300;400;600;700;800&family=Inter:wght@700;800;900&display=swap" rel="stylesheet">
+  <link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/font-awesome/6.5.1/css/all.min.css">
+  <link rel="stylesheet" href="https://cdn.jsdelivr.net/npm/@tabler/icons-webfont@3.19.0/dist/tabler-icons.min.css">
+  <link rel="stylesheet" href="style.css">
+  <style>
+    /* ── PAGE HERO ── */
+    .pj-hero {
+      background: var(--dark);
+      padding: 80px 64px 64px;
+      position: relative;
+      overflow: hidden;
+    }
+    .pj-hero::before {
+      content: '';
+      position: absolute; inset: 0;
+      background-image:
+        linear-gradient(rgba(74,138,90,.06) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,138,90,.06) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+    .pj-hero-inner {
+      position: relative;
+      display: flex; align-items: flex-start; justify-content: space-between; gap: 40px;
+    }
+    .pj-hero-text { flex: 1; }
+    .pj-hero-logo { flex-shrink: 0; display: flex; align-items: center; }
+    .pj-hero-logo img { width: 150px; opacity: .9; }
+    .pj-back {
+      display: inline-flex; align-items: center; gap: 7px;
+      font-size: 12.5px; color: rgba(255,255,255,.45);
+      font-family: var(--font); margin-bottom: 28px;
+      transition: color .2s;
+    }
+    .pj-back:hover { color: rgba(255,255,255,.8); }
+    .pj-back i { font-size: 11px; }
+    .pj-hero h1 {
+      font-family: var(--display); font-size: 42px; font-weight: 900;
+      color: #fff; line-height: 1.1; margin-bottom: 14px;
+    }
+    .pj-hero p  { font-size: 15px; color: rgba(255,255,255,.5); font-family: var(--font); max-width: 500px; }
+
+    /* ── FILTERS ── */
+    .pj-filters {
+      background: #fff; border-bottom: 1px solid var(--bg-alt);
+      padding: 0 64px;
+      display: flex; align-items: center; gap: 8px;
+      overflow-x: auto; -webkit-overflow-scrolling: touch;
+      position: sticky; top: 0; z-index: 10;
+    }
+    .pj-filters::-webkit-scrollbar { display: none; }
+    .filter-btn {
+      flex-shrink: 0; padding: 16px 18px;
+      border: none; background: none; cursor: pointer;
+      font-family: var(--font); font-size: 12.5px; font-weight: 600;
+      color: var(--txt-m); border-bottom: 2px solid transparent;
+      transition: color .2s, border-color .2s;
+      white-space: nowrap;
+    }
+    .filter-btn:hover  { color: var(--green); }
+    .filter-btn.active { color: var(--green); border-bottom-color: var(--green); }
+
+    /* ── GRID ── */
+    .pj-content { padding: 52px 64px 80px; }
+    .pj-grid {
+      display: grid;
+      grid-template-columns: repeat(3, 1fr);
+      gap: 26px;
+    }
+    .pj-card {
+      position: relative; overflow: hidden; border-radius: 2px;
+      cursor: pointer; aspect-ratio: 4/3;
+      background: var(--bg-alt);
+    }
+    .pj-card-img {
+      position: absolute; inset: 0; width: 100%; height: 100%;
+      object-fit: cover; transition: transform .6s cubic-bezier(.22,1,.36,1);
+    }
+    .pj-card:hover .pj-card-img { transform: scale(1.06); }
+    .pj-card-ov {
+      position: absolute; inset: 0;
+      background: linear-gradient(to top, rgba(18,26,34,.9) 0%, rgba(18,26,34,.2) 55%, transparent 100%);
+    }
+    .pj-card-body {
+      position: absolute; bottom: 0; left: 0; right: 0; padding: 22px; z-index: 2;
+      transform: translateY(8px); transition: transform .3s ease;
+    }
+    .pj-card:hover .pj-card-body { transform: translateY(0); }
+    .pj-card-tag  { font-size: 10px; font-weight: 700; color: var(--green-a); letter-spacing: 1.5px; text-transform: uppercase; margin-bottom: 6px; }
+    .pj-card-name { font-size: 17px; font-weight: 700; color: #fff; font-family: var(--display); line-height: 1.25; margin-bottom: 8px; }
+    .pj-card-meta { font-size: 11.5px; color: rgba(255,255,255,.45); }
+    .pj-card-arrow { font-size: 12px; color: rgba(255,255,255,.6); margin-top: 10px; display: flex; align-items: center; gap: 6px; opacity: 0; transform: translateX(-6px); transition: opacity .3s, transform .3s; }
+    .pj-card:hover .pj-card-arrow { opacity: 1; transform: translateX(0); }
+
+    .pj-empty {
+      grid-column: 1/-1; text-align: center; padding: 80px 20px;
+      color: var(--txt-m);
+    }
+    .pj-empty i   { font-size: 48px; opacity: .2; display: block; margin-bottom: 18px; }
+    .pj-empty h3  { font-size: 17px; margin-bottom: 6px; }
+    .pj-empty p   { font-size: 14px; }
+
+    .pj-count { font-size: 13px; color: var(--txt-m); margin-bottom: 28px; }
+
+    /* ── MODAL (reusa modal do site) ── */
+    /* mesmo estilo do style.css */
+
+    /* ── MOBILE ── */
+    @media (max-width: 960px) {
+      .pj-hero    { padding: 60px 32px 48px; }
+      .pj-filters { padding: 0 32px; }
+      .pj-content { padding: 40px 32px 60px; }
+      .pj-grid    { grid-template-columns: repeat(2,1fr); }
+    }
+    @media (max-width: 600px) {
+      .pj-hero    { padding: 48px 20px 36px; }
+      .pj-hero h1 { font-size: 28px; }
+      .pj-filters { padding: 0 16px; }
+      .pj-content { padding: 28px 20px 60px; }
+      .pj-grid    { grid-template-columns: 1fr; }
+    }
+
+    /* sem sidebar nesta página */
+    .main { margin-left: 0; }
+  </style>
+</head>
+<body>
+
+<!-- PAGE -->
+<div class="main">
+
+  <!-- HERO -->
+  <div class="pj-hero">
+    <div class="pj-hero-inner">
+      <div class="pj-hero-text">
+        <a href="/" class="pj-back"><i class="fas fa-arrow-left"></i> Voltar ao site</a>
+        <h1 id="heroTitle">Nossos Projetos</h1>
+        <p  id="heroSubtitle">Conheça o portfólio completo da Concretiza Engenharia — projetos residenciais, comerciais, industriais e muito mais.</p>
+      </div>
+      <div class="pj-hero-logo">
+        <a href="/"><img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia"></a>
+      </div>
+    </div>
+  </div>
+
+  <!-- FILTERS -->
+  <div class="pj-filters" id="pjFilters">
+    <button class="filter-btn active" data-cat="">Todos</button>
+    <!-- categorias carregadas via JS -->
+  </div>
+
+  <!-- GRID -->
+  <div class="pj-content">
+    <p class="pj-count" id="pjCount"></p>
+    <div class="pj-grid" id="pjGrid">
+      <div class="pj-empty">
+        <i class="fas fa-spinner fa-spin"></i>
+        <h3>Carregando projetos...</h3>
+      </div>
+    </div>
+  </div>
+
+</div>
+
+<!-- MODAL -->
+<div class="modal-wrap" id="modal">
+  <div class="modal-box">
+    <div class="modal-head">
+      <div>
+        <div class="modal-title" id="mTitle">—</div>
+        <div class="modal-desc"  id="mDesc">—</div>
+      </div>
+      <button class="modal-close" onclick="closeModal()"><i class="fas fa-times"></i></button>
+    </div>
+    <div class="modal-gal">
+      <img src="" alt="" class="modal-main" id="mMain" onclick="openLb(curThumb)">
+      <div class="modal-thumbs" id="mThumbs"></div>
+    </div>
+  </div>
+</div>
+
+<!-- LIGHTBOX -->
+<div class="lb" id="lb">
+  <button class="lb-close" onclick="closeLb()"><i class="fas fa-times"></i></button>
+  <button class="lb-nav lb-prev" onclick="lbNav(-1)"><i class="fas fa-chevron-left"></i></button>
+  <img src="" alt="" id="lbImg">
+  <button class="lb-nav lb-next" onclick="lbNav(1)"><i class="fas fa-chevron-right"></i></button>
+</div>
+
+<script>
+let ALL_PROJECTS = [];
+let curProj  = null;
+let curThumb = 0;
+let activeFilter = '';
+
+function imgUrl(fn) { return `/uploads/${fn}`; }
+
+function thumbOf(p) {
+  if (p.featured_image) {
+    const f = p.images.find(i => i.filename === p.featured_image);
+    if (f) return imgUrl(f.filename);
+  }
+  return p.images.length ? imgUrl(p.images[0].filename) : '';
+}
+
+function buildCard(p, globalIdx) {
+  const div = document.createElement('div');
+  div.className = 'pj-card';
+  div.onclick   = () => openModal(globalIdx);
+  const thumb   = thumbOf(p);
+  div.innerHTML = `
+    ${thumb ? `<img class="pj-card-img" src="${thumb}" alt="${p.name}" loading="lazy">` : ''}
+    <div class="pj-card-ov"></div>
+    <div class="pj-card-body">
+      <div class="pj-card-tag">${p.category || 'Projeto'}</div>
+      <div class="pj-card-name">${p.name}</div>
+      <div class="pj-card-meta">${[p.year, p.images.length + ' foto' + (p.images.length !== 1 ? 's' : '')].filter(Boolean).join(' · ')}</div>
+      <div class="pj-card-arrow">Ver Projeto <i class="fas fa-arrow-right"></i></div>
+    </div>`;
+  return div;
+}
+
+function renderGrid(filter) {
+  activeFilter = filter;
+  const filtered = filter ? ALL_PROJECTS.filter(p => p.category === filter) : ALL_PROJECTS;
+  const grid = document.getElementById('pjGrid');
+  const count = document.getElementById('pjCount');
+  grid.innerHTML = '';
+  count.textContent = `${filtered.length} projeto${filtered.length !== 1 ? 's' : ''}`;
+
+  if (!filtered.length) {
+    grid.innerHTML = `<div class="pj-empty">
+      <i class="fas fa-folder-open"></i>
+      <h3>Nenhum projeto nesta categoria</h3>
+      <p>Selecione outra categoria para ver os projetos.</p>
+    </div>`;
+    return;
+  }
+
+  filtered.forEach(p => {
+    const globalIdx = ALL_PROJECTS.indexOf(p);
+    grid.appendChild(buildCard(p, globalIdx));
+  });
+}
+
+function buildFilters() {
+  const categories = [...new Set(ALL_PROJECTS.map(p => p.category).filter(Boolean))].sort();
+  const bar  = document.getElementById('pjFilters');
+  categories.forEach(cat => {
+    const btn = document.createElement('button');
+    btn.className    = 'filter-btn';
+    btn.dataset.cat  = cat;
+    btn.textContent  = cat;
+    btn.onclick = () => {
+      document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+      btn.classList.add('active');
+      renderGrid(cat);
+    };
+    bar.appendChild(btn);
+  });
+  bar.querySelector('[data-cat=""]').onclick = () => {
+    document.querySelectorAll('.filter-btn').forEach(b => b.classList.remove('active'));
+    bar.querySelector('[data-cat=""]').classList.add('active');
+    renderGrid('');
+  };
+}
+
+async function init() {
+  try {
+    const [projects, settings] = await Promise.all([
+      fetch('/api/projects').then(r => r.json()),
+      fetch('/api/settings').then(r => r.json()),
+    ]);
+    ALL_PROJECTS = projects;
+
+    if (settings['projetos.hero.title'])    document.getElementById('heroTitle').textContent    = settings['projetos.hero.title'];
+    if (settings['projetos.hero.subtitle']) document.getElementById('heroSubtitle').textContent = settings['projetos.hero.subtitle'];
+
+    buildFilters();
+    renderGrid('');
+  } catch(e) {
+    document.getElementById('pjGrid').innerHTML = `<div class="pj-empty">
+      <i class="fas fa-exclamation-circle"></i>
+      <h3>Erro ao carregar projetos</h3>
+      <p>Tente recarregar a página.</p>
+    </div>`;
+  }
+}
+
+// ── MODAL ──────────────────────────────────────────────
+function openModal(idx) {
+  const p = ALL_PROJECTS[idx];
+  if (!p) return;
+  curProj  = p;
+  curThumb = 0;
+  document.getElementById('mTitle').textContent = p.name;
+  document.getElementById('mDesc').textContent  = [p.category, p.year].filter(Boolean).join(' · ');
+  const imgs = p.images.map(im => imgUrl(im.filename));
+  document.getElementById('mMain').src = imgs[0] || '';
+  const tc = document.getElementById('mThumbs');
+  tc.innerHTML = '';
+  imgs.forEach((src, j) => {
+    const img = document.createElement('img');
+    img.src = src; img.alt = p.name;
+    img.className = 'modal-thumb' + (j === 0 ? ' on' : '');
+    img.onclick = () => pickThumb(j);
+    tc.appendChild(img);
+  });
+  document.getElementById('modal').classList.add('on');
+  document.body.style.overflow = 'hidden';
+}
+
+function pickThumb(j) {
+  curThumb = j;
+  const imgs = curProj.images.map(im => imgUrl(im.filename));
+  const main = document.getElementById('mMain');
+  main.style.opacity = '0';
+  setTimeout(() => { main.src = imgs[j]; main.style.opacity = '1'; }, 180);
+  document.querySelectorAll('.modal-thumb').forEach((el, k) => el.classList.toggle('on', k === j));
+}
+
+function closeModal() {
+  document.getElementById('modal').classList.remove('on');
+  document.body.style.overflow = '';
+}
+
+function openLb(j) {
+  curThumb = j;
+  const imgs = curProj.images.map(im => imgUrl(im.filename));
+  document.getElementById('lbImg').src = imgs[j];
+  document.getElementById('lb').classList.add('on');
+}
+function closeLb() { document.getElementById('lb').classList.remove('on'); }
+function lbNav(d) {
+  const imgs = curProj.images.map(im => imgUrl(im.filename));
+  curThumb = (curThumb + d + imgs.length) % imgs.length;
+  document.getElementById('lbImg').src = imgs[curThumb];
+}
+
+document.addEventListener('keydown', e => {
+  if (document.getElementById('lb').classList.contains('on')) {
+    if (e.key === 'ArrowLeft')  lbNav(-1);
+    if (e.key === 'ArrowRight') lbNav(1);
+    if (e.key === 'Escape')     closeLb();
+  } else if (document.getElementById('modal').classList.contains('on')) {
+    if (e.key === 'Escape') closeModal();
+  }
+});
+
+init();
+</script>
+</body>
+</html>

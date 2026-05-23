@@ -1,0 +1,143 @@
+<!DOCTYPE html>
+<html lang="pt-BR">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Acesso Restrito — Concretiza Engenharia</title>
+  <link rel="icon" type="image/jpeg" href="imagens/favicon-concretiza.jpg">
+  <link rel="preconnect" href="https://fonts.googleapis.com">
+  <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+  <link href="https://fonts.googleapis.com/css2?family=Inter:wght@400;500;600;700&display=swap" rel="stylesheet">
+  <style>
+    :root {
+      --green:  #4a8a5a;
+      --dark:   #181f27;
+      --border: #d8dbd4;
+      --txt:    #2a3038;
+      --txt-m:  #5a6470;
+      --font:   'Inter', sans-serif;
+      --radius: 8px;
+    }
+    *, *::before, *::after { box-sizing: border-box; margin: 0; padding: 0; }
+    body {
+      font-family: var(--font); background: var(--dark); color: var(--txt);
+      min-height: 100vh; display: flex; align-items: center; justify-content: center;
+      background-image:
+        linear-gradient(rgba(74,138,90,.05) 1px, transparent 1px),
+        linear-gradient(90deg, rgba(74,138,90,.05) 1px, transparent 1px);
+      background-size: 40px 40px;
+    }
+
+    .login-card {
+      background: #fff; border-radius: 12px; padding: 44px 40px;
+      width: 100%; max-width: 400px;
+      box-shadow: 0 24px 80px rgba(0,0,0,.4);
+      animation: fadeUp .4s cubic-bezier(.22,1,.36,1);
+    }
+    @keyframes fadeUp {
+      from { opacity: 0; transform: translateY(24px); }
+      to   { opacity: 1; transform: translateY(0); }
+    }
+
+    .login-logo {
+      display: flex; justify-content: center; margin-bottom: 32px;
+    }
+    .login-logo img { width: 130px; }
+
+    h1 { font-size: 19px; font-weight: 700; margin-bottom: 4px; }
+    .subtitle { font-size: 13.5px; color: var(--txt-m); margin-bottom: 28px; }
+
+    .form-group { margin-bottom: 16px; }
+    label { display: block; font-size: 13px; font-weight: 600; margin-bottom: 6px; }
+    input {
+      width: 100%; padding: 10px 13px; border: 1px solid var(--border);
+      border-radius: var(--radius); font-family: var(--font); font-size: 14px;
+      color: var(--txt); outline: none;
+      transition: border-color .2s, box-shadow .2s;
+    }
+    input:focus {
+      border-color: var(--green);
+      box-shadow: 0 0 0 3px rgba(74,138,90,.12);
+    }
+
+    .btn-login {
+      width: 100%; padding: 11px; background: var(--green); color: #fff;
+      border: none; border-radius: var(--radius); font-size: 14.5px;
+      font-weight: 700; cursor: pointer; margin-top: 8px;
+      transition: background .2s, transform .15s;
+      font-family: var(--font);
+    }
+    .btn-login:hover    { background: #5da870; }
+    .btn-login:active   { transform: scale(.98); }
+    .btn-login:disabled { opacity: .55; cursor: not-allowed; }
+
+    .error-msg {
+      background: #fdf0ef; border: 1px solid #e8a09b; color: #c0392b;
+      padding: 10px 13px; border-radius: var(--radius);
+      font-size: 13px; margin-top: 14px; display: none;
+    }
+    .error-msg.show { display: block; }
+
+    .back-link {
+      display: block; text-align: center; margin-top: 22px;
+      font-size: 12.5px; color: var(--txt-m);
+      text-decoration: none; transition: color .2s;
+    }
+    .back-link:hover { color: var(--green); }
+  </style>
+</head>
+<body>
+  <div class="login-card">
+    <div class="login-logo">
+      <img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia">
+    </div>
+    <h1>Área Restrita</h1>
+    <p class="subtitle">Informe suas credenciais para continuar</p>
+
+    <form id="loginForm">
+      <div class="form-group">
+        <label for="email">Email</label>
+        <input type="email" id="email" placeholder="seu@email.com.br" required autocomplete="email">
+      </div>
+      <div class="form-group">
+        <label for="password">Senha</label>
+        <input type="password" id="password" placeholder="••••••••" required autocomplete="current-password">
+      </div>
+      <button type="submit" class="btn-login" id="btnLogin">Entrar</button>
+      <div class="error-msg" id="errorMsg"></div>
+    </form>
+
+    <a href="/" class="back-link">← Voltar ao site</a>
+  </div>
+
+  <script>
+    document.getElementById('loginForm').addEventListener('submit', async e => {
+      e.preventDefault();
+      const btn = document.getElementById('btnLogin');
+      const err = document.getElementById('errorMsg');
+      btn.disabled   = true;
+      btn.textContent = 'Entrando...';
+      err.classList.remove('show');
+
+      try {
+        const res = await fetch('/api/auth/login', {
+          method:  'POST',
+          headers: { 'Content-Type': 'application/json' },
+          body: JSON.stringify({
+            email:    document.getElementById('email').value.trim(),
+            password: document.getElementById('password').value
+          })
+        });
+        const data = await res.json();
+        if (!res.ok) throw new Error(data.error || 'Erro ao fazer login');
+        window.location.href = '/admin.html';
+      } catch(e) {
+        err.textContent = e.message;
+        err.classList.add('show');
+        btn.disabled    = false;
+        btn.textContent = 'Entrar';
+      }
+    });
+  </script>
+</body>
+</html>
