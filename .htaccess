@@ -1,0 +1,19 @@
+Options -Indexes
+
+# protect SQLite database and PHP helpers from direct access
+<FilesMatch "\.(db|db-shm|db-wal)$">
+    Order Allow,Deny
+    Deny from all
+</FilesMatch>
+
+<Files "db.php">
+    Order Allow,Deny
+    Deny from all
+</Files>
+
+<IfModule mod_rewrite.c>
+    RewriteEngine On
+
+    # route all /api/* requests to api.php
+    RewriteRule ^api/(.*)$ api.php [QSA,L]
+</IfModule>

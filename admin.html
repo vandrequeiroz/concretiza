@@ -760,13 +760,17 @@ async function saveProject() {
       const idx = Array.from(document.querySelectorAll('#imgPreviewGrid .img-preview img')).findIndex(i => i.src === url);
       finalFeatured = `__new:${idx}`;
     }
-    fd.append('featured_image', finalFeatured.startsWith('__new:') ? '' : finalFeatured);
+    fd.append('featuredImage', finalFeatured.startsWith('__new:') ? '' : finalFeatured);
     newFiles.forEach(f => fd.append('images', f));
-    removedImages.forEach(id => fd.append('remove_images', id));
+    removedImages.forEach(id => fd.append('removeImages', id));
 
     let saved;
-    if (editingId) saved = await api(`/api/projects/${editingId}`, { method: 'PUT', body: fd });
-    else           saved = await api('/api/projects',              { method: 'POST', body: fd });
+    if (editingId) {
+      fd.append('_method', 'PUT');
+      saved = await api(`/api/projects/${editingId}`, { method: 'POST', body: fd });
+    } else {
+      saved = await api('/api/projects', { method: 'POST', body: fd });
+    }
 
     if (finalFeatured.startsWith('__new:')) {
       const idx = parseInt(finalFeatured.slice(7));
@@ -777,7 +781,7 @@ async function saveProject() {
       if (target) {
         await api(`/api/projects/${saved.id}/featured`, {
           method: 'POST', headers: { 'Content-Type': 'application/json' },
-          body: JSON.stringify({ featured_image: target.filename })
+          body: JSON.stringify({ filename: target.filename })
         });
       }
     }
