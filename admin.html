@@ -762,7 +762,7 @@ async function saveProject() {
     }
     fd.append('featuredImage', finalFeatured.startsWith('__new:') ? '' : finalFeatured);
     newFiles.forEach(f => fd.append('images[]', f));
-    removedImages.forEach(id => fd.append('removeImages', id));
+    fd.append('removeImages', JSON.stringify(removedImages));
 
     let saved;
     if (editingId) {
