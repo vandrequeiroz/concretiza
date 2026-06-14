@@ -336,6 +336,10 @@
     </button>
 
     <span class="nav-section" style="margin-top:8px">Sistema</span>
+    <button class="nav-link" data-page="config">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
+      Configurações
+    </button>
     <button class="nav-link" data-page="users">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
       Usuários
@@ -496,6 +500,87 @@
       <div style="display:flex;justify-content:flex-end;margin-top:16px">
         <button class="btn-primary" id="btnSaveTexts">Salvar</button>
       </div>
+    </div>
+  </div>
+
+  <!-- PAGE: CONFIGURAÇÕES -->
+  <div class="page" id="page-config">
+    <div class="page-header" style="margin-bottom:8px">
+      <div class="page-header-left"><h1>Configurações</h1><p>Meta descrição, logotipo, favicon e loading da página</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Meta Descrição -->
+      <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <h3 style="font-size:14px;font-weight:700;margin-bottom:6px">Meta Descrição</h3>
+        <p style="font-size:12.5px;color:var(--txt-m);margin-bottom:12px">Texto exibido nos resultados de busca do Google. Idealmente entre 120 e 160 caracteres.</p>
+        <div class="form-group" style="margin-bottom:0">
+          <textarea id="cfgMetaDesc" rows="3" placeholder="Descrição do site para mecanismos de busca..."></textarea>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:16px">
+          <button class="btn-primary" id="btnSaveMeta" onclick="saveConfigMeta()">Salvar</button>
+        </div>
+      </div>
+
+      <!-- Logotipo e Favicon lado a lado -->
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:16px">
+
+        <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+          <h3 style="font-size:14px;font-weight:700;margin-bottom:6px">Logotipo</h3>
+          <p style="font-size:12.5px;color:var(--txt-m);margin-bottom:14px">Imagem exibida no cabeçalho e na tela de loading.</p>
+          <div style="margin-bottom:14px">
+            <img id="cfgLogoPreview" src="imagens/logotipo-concretiza.png" alt="Logo" style="max-height:80px;max-width:100%;object-fit:contain;border-radius:6px;background:#f5f5f5;padding:10px;display:block">
+          </div>
+          <label class="btn-primary" style="cursor:pointer;display:inline-block">
+            Escolher imagem
+            <input type="file" id="cfgLogoFile" accept="image/*" style="display:none" onchange="uploadConfigImg('config.logo','cfgLogoPreview',this)">
+          </label>
+        </div>
+
+        <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+          <h3 style="font-size:14px;font-weight:700;margin-bottom:6px">Favicon</h3>
+          <p style="font-size:12.5px;color:var(--txt-m);margin-bottom:14px">Ícone exibido na aba do navegador. Recomendado: PNG quadrado (64×64 px).</p>
+          <div style="margin-bottom:14px">
+            <img id="cfgFaviconPreview" src="imagens/favicon-concretiza.jpg" alt="Favicon" style="width:64px;height:64px;object-fit:cover;border-radius:6px;background:#f5f5f5;padding:4px;display:block">
+          </div>
+          <label class="btn-primary" style="cursor:pointer;display:inline-block">
+            Escolher imagem
+            <input type="file" id="cfgFaviconFile" accept="image/*" style="display:none" onchange="uploadConfigImg('config.favicon','cfgFaviconPreview',this)">
+          </label>
+        </div>
+
+      </div>
+
+      <!-- Loading -->
+      <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <h3 style="font-size:14px;font-weight:700;margin-bottom:6px">Loading da Página</h3>
+        <p style="font-size:12.5px;color:var(--txt-m);margin-bottom:16px">Controla se a animação de entrada é exibida ao carregar o site.</p>
+        <div style="display:flex;align-items:center;gap:14px;margin-bottom:16px">
+          <span style="font-size:13.5px;font-weight:600">Exibir loading</span>
+          <label style="position:relative;display:inline-flex;align-items:center;width:46px;height:26px;cursor:pointer">
+            <input type="checkbox" id="cfgLoadingAtivo" style="position:absolute;opacity:0;width:0;height:0" onchange="toggleLoadingTempo()">
+            <span id="cfgLoadingTrack" style="position:absolute;inset:0;border-radius:26px;background:#ccc;transition:.25s"></span>
+            <span id="cfgLoadingThumb" style="position:absolute;left:3px;width:20px;height:20px;border-radius:50%;background:#fff;box-shadow:0 1px 4px rgba(0,0,0,.25);transition:.25s"></span>
+          </label>
+          <span id="cfgLoadingLabel" style="font-size:13px;color:var(--txt-m)">Desabilitado</span>
+        </div>
+        <div id="cfgLoadingTempoWrap" style="display:none">
+          <div class="form-group" style="margin-bottom:0">
+            <label>Duração da animação</label>
+            <select id="cfgLoadingTempo" style="font-family:var(--font)">
+              <option value="1200">1.2 segundos</option>
+              <option value="1800">1.8 segundos</option>
+              <option value="2400" selected>2.4 segundos (padrão)</option>
+              <option value="3200">3.2 segundos</option>
+              <option value="4000">4 segundos</option>
+            </select>
+          </div>
+        </div>
+        <div style="display:flex;justify-content:flex-end;margin-top:16px">
+          <button class="btn-primary" id="btnSaveLoading" onclick="saveConfigLoading()">Salvar</button>
+        </div>
+      </div>
+
     </div>
   </div>
 
@@ -685,7 +770,7 @@ document.getElementById('confirmCancel').onclick = () =>
 // ════════════════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════════════════
-const pageTitles = { projects: 'Projetos', slides: 'Slides', sobre: 'Quem Somos', contato: 'Contato', diferenciais: 'Diferenciais', projsec: 'Seção Projetos', users: 'Usuários' };
+const pageTitles = { projects: 'Projetos', slides: 'Slides', sobre: 'Quem Somos', contato: 'Contato', diferenciais: 'Diferenciais', projsec: 'Seção Projetos', config: 'Configurações', users: 'Usuários' };
 
 document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -702,6 +787,7 @@ document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
     if (page === 'contato')      loadSettingsContato();
     if (page === 'diferenciais') loadSettingsDif();
     if (page === 'projsec')      loadSettingsProjSec();
+    if (page === 'config')       loadSettingsConfig();
   });
 });
 
@@ -1385,6 +1471,61 @@ async function saveTexts() {
 }
 
 document.getElementById('btnSaveTexts').onclick = saveTexts;
+
+// ─── Configurações ───────────────────────────────────
+function applyLoadingToggle(ativo) {
+  const track = document.getElementById('cfgLoadingTrack');
+  const thumb = document.getElementById('cfgLoadingThumb');
+  if (track) track.style.background = ativo ? 'var(--green)' : '#ccc';
+  if (thumb) thumb.style.left = ativo ? '23px' : '3px';
+  document.getElementById('cfgLoadingLabel').textContent = ativo ? 'Habilitado' : 'Desabilitado';
+  document.getElementById('cfgLoadingTempoWrap').style.display = ativo ? '' : 'none';
+}
+
+async function loadSettingsConfig() {
+  try {
+    const s = await api('/api/settings');
+    document.getElementById('cfgMetaDesc').value = s['config.meta.descricao'] || '';
+    if (s['config.logo'])    document.getElementById('cfgLogoPreview').src    = '/' + s['config.logo'];
+    if (s['config.favicon']) document.getElementById('cfgFaviconPreview').src = '/' + s['config.favicon'];
+    const ativo = s['config.loading.ativo'] !== '0';
+    document.getElementById('cfgLoadingAtivo').checked = ativo;
+    applyLoadingToggle(ativo);
+    const tempo = s['config.loading.tempo'] || '2400';
+    const sel = document.getElementById('cfgLoadingTempo');
+    if (sel) sel.value = tempo;
+  } catch(e) { toast('Erro ao carregar', 'error'); }
+}
+
+function toggleLoadingTempo() {
+  applyLoadingToggle(document.getElementById('cfgLoadingAtivo').checked);
+}
+
+async function saveConfigMeta() {
+  putSettings({
+    'config.meta.descricao': document.getElementById('cfgMetaDesc').value.trim(),
+  }, 'btnSaveMeta', 'Salvar');
+}
+
+async function saveConfigLoading() {
+  const ativo = document.getElementById('cfgLoadingAtivo').checked ? '1' : '0';
+  const tempo = document.getElementById('cfgLoadingTempo').value;
+  putSettings({ 'config.loading.ativo': ativo, 'config.loading.tempo': tempo }, 'btnSaveLoading', 'Salvar');
+}
+
+async function uploadConfigImg(key, previewId, input) {
+  if (!input.files[0]) return;
+  const fd = new FormData();
+  fd.append('imagem', input.files[0]);
+  fd.append('key', key);
+  try {
+    const res = await fetch('/api/settings/imagem', { method: 'POST', body: fd });
+    const data = await res.json();
+    if (!res.ok) throw new Error(data.error || 'Erro');
+    document.getElementById(previewId).src = '/' + data.path;
+    toast('Imagem salva!');
+  } catch(e) { toast('Erro ao enviar imagem', 'error'); }
+}
 
 // ════════════════════════════════════════════════════
 // INIT

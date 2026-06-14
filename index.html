@@ -2,10 +2,10 @@
 <html lang="pt-BR">
 <head>
   <meta charset="UTF-8">
-  <link rel="icon" type="image/jpeg" href="imagens/favicon-concretiza.jpg">
+  <link rel="icon" type="image/jpeg" href="imagens/favicon-concretiza.jpg" id="faviconLink">
   <meta name="viewport" content="width=device-width, initial-scale=1.0">
   <title>Concretiza Engenharia — Projetos e Obras em São Roque/SP</title>
-  <meta name="description" content="Empresa de engenharia civil fundada em 2005. Projetos arquitetônicos, hidráulicos, elétricos e execução de obras em São Roque e região.">
+  <meta name="description" content="Empresa de engenharia civil fundada em 2005. Projetos arquitetônicos, hidráulicos, elétricos e execução de obras em São Roque e região." id="metaDesc">
 
   <!-- Fonts -->
   <link rel="preconnect" href="https://fonts.googleapis.com">
@@ -29,7 +29,7 @@
   <div class="ldr-inner">
     <!-- Logo -->
     <div class="ldr-logo">
-      <img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia">
+      <img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia" class="site-logo">
     </div>
 
     <!-- Prédio sendo construído andar por andar -->
@@ -58,7 +58,7 @@
 <!-- SIDEBAR -->
 <aside class="sidebar" id="sidebar">
   <div class="sidebar-logo">
-    <a href="#home"><img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia"></a>
+    <a href="#home"><img src="imagens/logotipo-concretiza.png" alt="Concretiza Engenharia" class="site-logo"></a>
   </div>
   <nav class="sidebar-nav">
     <a href="#home"        class="active"><i class="ti ti-home"></i>Início</a>
@@ -396,12 +396,13 @@
 // ── LOADING SCREEN ──────────────────────────────────
 (function () {
   const loader = document.getElementById('loader');
-  const MIN_MS = 2400; // tempo mínimo de exibição
+  const cfg    = JSON.parse(localStorage.getItem('concretiza_cfg') || '{}');
+  if (cfg.loadingAtivo === '0') { if (loader) loader.remove(); return; }
+  const MIN_MS = parseInt(cfg.loadingTempo) || 2400;
   const start  = Date.now();
 
   function hideLoader() {
-    const elapsed = Date.now() - start;
-    const remaining = Math.max(0, MIN_MS - elapsed);
+    const remaining = Math.max(0, MIN_MS - (Date.now() - start));
     setTimeout(() => {
       loader.classList.add('ldr-out');
       loader.addEventListener('transitionend', () => loader.remove(), { once: true });
@@ -571,6 +572,23 @@ async function loadSiteSettings() {
       const icEl = document.getElementById(`dif${n}icone`);
       if (icEl && s[`dif${n}.icone`]) icEl.className = s[`dif${n}.icone`];
     });
+    // Configurações globais
+    if (s['config.meta.descricao']) {
+      const m = document.getElementById('metaDesc');
+      if (m) m.setAttribute('content', s['config.meta.descricao']);
+    }
+    if (s['config.logo']) {
+      document.querySelectorAll('.site-logo').forEach(el => { el.src = '/' + s['config.logo']; });
+    }
+    if (s['config.favicon']) {
+      const fav = document.getElementById('faviconLink');
+      if (fav) fav.href = '/' + s['config.favicon'];
+    }
+    // Salvar config de loading no localStorage para próximo carregamento
+    localStorage.setItem('concretiza_cfg', JSON.stringify({
+      loadingAtivo: s['config.loading.ativo'] ?? '1',
+      loadingTempo: s['config.loading.tempo'] ?? '2400',
+    }));
   } catch(e) {}
 }
 loadSiteSettings();

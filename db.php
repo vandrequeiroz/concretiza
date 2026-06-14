@@ -89,6 +89,12 @@ function getDb() {
         'dif4.icone'  => 'fas fa-handshake',    'dif4.titulo' => 'Transparência Total',   'dif4.texto' => 'Relatórios periódicos, controle financeiro detalhado e comunicação direta e honesta com o cliente.',
         'dif5.icone'  => 'fas fa-leaf',         'dif5.titulo' => 'Sustentabilidade',      'dif5.texto' => 'Soluções construtivas que respeitam o meio ambiente com uso consciente de recursos e técnicas sustentáveis.',
         'dif6.icone'  => 'fas fa-shield-alt',   'dif6.titulo' => 'Segurança em Obra',     'dif6.texto' => 'Normas de segurança do trabalho rigorosamente aplicadas para proteger nossa equipe e todos os envolvidos.',
+        // Configurações globais
+        'config.meta.descricao' => 'Empresa de engenharia civil fundada em 2005. Projetos arquitetônicos, hidráulicos, elétricos e execução de obras em São Roque e região.',
+        'config.logo'           => '',
+        'config.favicon'        => '',
+        'config.loading.ativo'  => '1',
+        'config.loading.tempo'  => '2400',
     ];
     $ins = $pdo->prepare('INSERT OR IGNORE INTO settings (key,value) VALUES (?,?)');
     foreach ($defaults as $k => $v) $ins->execute([$k, $v]);
