@@ -1,6 +1,7 @@
 const express = require('express');
 const db      = require('../database');
 const { requireAuth } = require('../middleware/auth');
+const upload  = require('../middleware/upload');
 const router  = express.Router();
 
 // GET /api/settings  — público (site consome)
@@ -22,6 +23,15 @@ router.put('/', requireAuth, (req, res) => {
   })();
 
   res.json({ success: true });
+});
+
+// POST /api/settings/foto — upload foto da seção Quem Somos
+router.post('/foto', requireAuth, upload.single('foto'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Nenhum arquivo enviado' });
+  const path = 'uploads/' + req.file.filename;
+  db.prepare('INSERT INTO settings (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value')
+    .run('sobre.foto', path);
+  res.json({ path });
 });
 
 module.exports = router;
