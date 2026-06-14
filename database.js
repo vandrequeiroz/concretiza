@@ -73,6 +73,14 @@ const defaults = {
   'dif4.icone': 'fas fa-handshake',   'dif4.titulo': 'Transparência Total',   'dif4.texto': 'Relatórios periódicos, controle financeiro detalhado e comunicação direta e honesta com o cliente.',
   'dif5.icone': 'fas fa-leaf',        'dif5.titulo': 'Sustentabilidade',      'dif5.texto': 'Soluções construtivas que respeitam o meio ambiente com uso consciente de recursos e técnicas sustentáveis.',
   'dif6.icone': 'fas fa-shield-alt',  'dif6.titulo': 'Segurança em Obra',     'dif6.texto': 'Normas de segurança do trabalho rigorosamente aplicadas para proteger nossa equipe e todos os envolvidos.',
+  // Serviços
+  'servicos.label':  'O que fazemos',
+  'servicos.titulo': 'Nossos Serviços',
+  'servicos.desc':   'Soluções completas em engenharia, do projeto executivo à entrega final da obra.',
+  'svc1.icone': 'fas fa-drafting-compass', 'svc1.titulo': 'Projeto Arquitetônico',    'svc1.texto': 'Elaboração de projetos residenciais, comerciais e industriais com documentação técnica completa para aprovação em prefeitura.',
+  'svc2.icone': 'fas fa-water',            'svc2.titulo': 'Projeto Hidráulico',       'svc2.texto': 'Projetos hidrossanitários completos — água fria, quente, esgoto e drenagem pluvial — conforme normas técnicas vigentes.',
+  'svc3.icone': 'fas fa-bolt',             'svc3.titulo': 'Projeto Elétrico',         'svc3.texto': 'Projetos elétricos residenciais e industriais: dimensionamento de cargas, quadros de distribuição e laudos para concessionária.',
+  'svc4.icone': 'fas fa-hard-hat',         'svc4.titulo': 'Execução e Adm. de Obras', 'svc4.texto': 'Gerenciamento completo da obra, do planejamento à entrega das chaves, com controle rigoroso de prazo, qualidade e custo.',
   // Configurações globais
   'config.meta.descricao': 'Empresa de engenharia civil fundada em 2005. Projetos arquitetônicos, hidráulicos, elétricos e execução de obras em São Roque e região.',
   'config.logo':           '',

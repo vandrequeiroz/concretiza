@@ -326,6 +326,10 @@
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.18z"/></svg>
       Contato
     </button>
+    <button class="nav-link" data-page="servicos">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M14.7 6.3a1 1 0 0 0 0 1.4l1.6 1.6a1 1 0 0 0 1.4 0l3.77-3.77a6 6 0 0 1-7.94 7.94l-6.91 6.91a2.12 2.12 0 0 1-3-3l6.91-6.91a6 6 0 0 1 7.94-7.94l-3.76 3.76z"/></svg>
+      Serviços
+    </button>
     <button class="nav-link" data-page="diferenciais">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
       Diferenciais
@@ -469,6 +473,35 @@
       <div style="display:flex;justify-content:flex-end;margin-top:16px">
         <button class="btn-primary" id="btnSaveContato">Salvar Contato</button>
       </div>
+    </div>
+  </div>
+
+  <!-- PAGE: SERVIÇOS -->
+  <div class="page" id="page-servicos">
+    <div class="page-header" style="margin-bottom:8px">
+      <div class="page-header-left"><h1>Serviços</h1><p>Edite o cabeçalho e os 4 cards da seção "Nossos Serviços"</p></div>
+    </div>
+    <div style="display:flex;flex-direction:column;gap:16px">
+
+      <!-- Cabeçalho da seção -->
+      <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+        <h3 style="font-size:13px;font-weight:700;text-transform:uppercase;letter-spacing:.5px;color:var(--txt-m);margin-bottom:14px">Cabeçalho da Seção</h3>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+          <div class="form-group" style="margin-bottom:0"><label>Rótulo (acima do título)</label><input type="text" id="sSvcLabel" placeholder="O que fazemos"></div>
+          <div class="form-group" style="margin-bottom:0"><label>Título</label><input type="text" id="sSvcTitulo" placeholder="Nossos Serviços"></div>
+        </div>
+        <div class="form-group" style="margin-top:12px;margin-bottom:0"><label>Descrição</label><textarea id="sSvcDesc" rows="2" placeholder="Soluções completas em engenharia..."></textarea></div>
+        <div style="display:flex;justify-content:flex-end;margin-top:16px">
+          <button class="btn-primary" id="btnSaveSvcHeader">Salvar Cabeçalho</button>
+        </div>
+      </div>
+
+      <!-- 4 cards de serviço -->
+      <div id="svcCardsAdmin" style="display:flex;flex-direction:column;gap:16px"></div>
+      <div style="display:flex;justify-content:flex-end">
+        <button class="btn-primary" id="btnSaveSvc">Salvar Serviços</button>
+      </div>
+
     </div>
   </div>
 
@@ -770,7 +803,7 @@ document.getElementById('confirmCancel').onclick = () =>
 // ════════════════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════════════════
-const pageTitles = { projects: 'Projetos', slides: 'Slides', sobre: 'Quem Somos', contato: 'Contato', diferenciais: 'Diferenciais', projsec: 'Seção Projetos', config: 'Configurações', users: 'Usuários' };
+const pageTitles = { projects: 'Projetos', slides: 'Slides', sobre: 'Quem Somos', contato: 'Contato', servicos: 'Serviços', diferenciais: 'Diferenciais', projsec: 'Seção Projetos', config: 'Configurações', users: 'Usuários' };
 
 document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -785,6 +818,7 @@ document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
     if (page === 'slides')       loadSettingsSlides();
     if (page === 'sobre')        loadSettingsSobre();
     if (page === 'contato')      loadSettingsContato();
+    if (page === 'servicos')     loadSettingsServicos();
     if (page === 'diferenciais') loadSettingsDif();
     if (page === 'projsec')      loadSettingsProjSec();
     if (page === 'config')       loadSettingsConfig();
@@ -1404,6 +1438,66 @@ document.getElementById('iconSearch').addEventListener('input', function() {
 document.getElementById('iconPickerOverlay').addEventListener('click', e => {
   if (e.target === e.currentTarget) closeIconPicker();
 });
+
+// ─── Serviços ────────────────────────────────────────
+const SVC_DEFAULTS = ['Projeto Arquitetônico','Projeto Hidráulico','Projeto Elétrico','Execução e Adm. de Obras'];
+
+async function loadSettingsServicos() {
+  try {
+    const s = await api('/api/settings');
+    document.getElementById('sSvcLabel').value  = s['servicos.label']  || '';
+    document.getElementById('sSvcTitulo').value = s['servicos.titulo'] || '';
+    document.getElementById('sSvcDesc').value   = s['servicos.desc']   || '';
+    const grid = document.getElementById('svcCardsAdmin');
+    grid.innerHTML = '';
+    [1,2,3,4].forEach(n => {
+      const cls    = s[`svc${n}.icone`] || 'fas fa-wrench';
+      const titulo = (s[`svc${n}.titulo`] || SVC_DEFAULTS[n-1]).replace(/"/g,'&quot;');
+      const texto  = s[`svc${n}.texto`]  || '';
+      const card = document.createElement('div');
+      card.style.cssText = 'background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px';
+      card.innerHTML = `
+        <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Serviço ${n}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end">
+          <div class="form-group" style="margin-bottom:0">
+            <label>Título</label>
+            <input type="text" id="svc${n}TituloAdmin" value="${titulo}">
+          </div>
+          <div class="form-group" style="margin-bottom:0">
+            <label>Ícone</label>
+            <button type="button" class="icon-field-btn" id="svc${n}IconeBtn" data-icon="${cls}" onclick="openIconPicker('svc${n}IconeBtn','${cls}')">
+              <i class="${cls}"></i>
+              <span>${cls}</span>
+              <em class="chg">Trocar</em>
+            </button>
+          </div>
+        </div>
+        <div class="form-group" style="margin-top:12px;margin-bottom:0">
+          <label>Descrição</label>
+          <textarea id="svc${n}TextoAdmin" rows="2">${texto}</textarea>
+        </div>`;
+      grid.appendChild(card);
+    });
+  } catch(e) { toast('Erro ao carregar', 'error'); }
+}
+
+document.getElementById('btnSaveSvcHeader').onclick = () => {
+  putSettings({
+    'servicos.label':  document.getElementById('sSvcLabel').value.trim(),
+    'servicos.titulo': document.getElementById('sSvcTitulo').value.trim(),
+    'servicos.desc':   document.getElementById('sSvcDesc').value.trim(),
+  }, 'btnSaveSvcHeader', 'Salvar Cabeçalho');
+};
+
+document.getElementById('btnSaveSvc').onclick = () => {
+  const body = {};
+  [1,2,3,4].forEach(n => {
+    body[`svc${n}.titulo`] = document.getElementById(`svc${n}TituloAdmin`).value.trim();
+    body[`svc${n}.icone`]  = document.getElementById(`svc${n}IconeBtn`).dataset.icon || '';
+    body[`svc${n}.texto`]  = document.getElementById(`svc${n}TextoAdmin`).value.trim();
+  });
+  putSettings(body, 'btnSaveSvc', 'Salvar Serviços');
+};
 
 // ─── Diferenciais ────────────────────────────────────
 const DIF_LABELS = ['Qualidade Garantida','Prazo no Cronograma','Equipe Especializada','Transparência Total','Sustentabilidade','Segurança em Obra'];
