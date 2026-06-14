@@ -78,6 +78,10 @@ function getDb() {
         'contato.email.label'      => 'Respondemos em até 24h',
         'contato.endereco'         => 'Praça da República, 189 — Centro',
         'contato.endereco.label'   => 'São Roque/SP — Visitas com agendamento',
+        // Hero Slides
+        'slide1.imagem' => 'imagens/slide/slide1.png',     'slide1.label' => 'Obras',              'slide1.titulo' => 'Execução e Administração de Obras',         'slide1.desc' => 'Soluções completas em engenharia civil, do projeto à entrega, com qualidade e comprometimento em cada etapa.', 'slide1.cta.texto' => 'Solicitar Orçamento', 'slide1.cta.href' => '#contato',
+        'slide2.imagem' => 'imagens/slide/slide2.png',     'slide2.label' => 'Galeria de Projetos','slide2.titulo' => 'Conheça Nossos Projetos',                   'slide2.desc' => 'Projetos residenciais, comerciais e industriais desenvolvidos com excelência técnica e visão criativa.',      'slide2.cta.texto' => 'Ver Projetos',        'slide2.cta.href' => '#projetos',
+        'slide3.imagem' => 'imagens/galeria/pexels-1460648-3172740.jpg', 'slide3.label' => 'Desde 2005', 'slide3.titulo' => 'Experiência que Constrói Confiança', 'slide3.desc' => 'Mais de 19 anos atuando na construção civil, industrial, comercial e residencial em São Roque e região.', 'slide3.cta.texto' => 'Conheça a Empresa',   'slide3.cta.href' => '#sobre',
         // Diferenciais
         'dif1.icone'  => 'fas fa-certificate', 'dif1.titulo' => 'Qualidade Garantida',   'dif1.texto' => 'Melhores materiais e técnicas construtivas para assegurar durabilidade e excelência em cada projeto.',
         'dif2.icone'  => 'fas fa-clock',        'dif2.titulo' => 'Prazo no Cronograma',   'dif2.texto' => 'Cumprimos rigorosamente os prazos com planejamento detalhado e acompanhamento constante de cada etapa.',

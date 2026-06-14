@@ -88,35 +88,35 @@
       <div class="swiper-wrapper">
 
         <div class="swiper-slide">
-          <div class="slide-bg" style="background-image:url('imagens/slide/slide1.png')"></div>
+          <div class="slide-bg" id="slide1bg" style="background-image:url('imagens/slide/slide1.png')"></div>
           <div class="slide-overlay"></div>
           <div class="slide-content">
-            <div class="slide-label">Obras</div>
-            <h1 class="slide-title">Execução e Administração de Obras</h1>
-            <p class="slide-desc">Soluções completas em engenharia civil, do projeto à entrega, com qualidade e comprometimento em cada etapa.</p>
-            <a href="#contato" class="slide-cta">Solicitar Orçamento <i class="fas fa-arrow-right"></i></a>
+            <div class="slide-label" id="slide1label">Obras</div>
+            <h1 class="slide-title" id="slide1titulo">Execução e Administração de Obras</h1>
+            <p class="slide-desc" id="slide1desc">Soluções completas em engenharia civil, do projeto à entrega, com qualidade e comprometimento em cada etapa.</p>
+            <a href="#contato" class="slide-cta" id="slide1cta">Solicitar Orçamento <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <div class="swiper-slide">
-          <div class="slide-bg" style="background-image:url('imagens/slide/slide2.png')"></div>
+          <div class="slide-bg" id="slide2bg" style="background-image:url('imagens/slide/slide2.png')"></div>
           <div class="slide-overlay"></div>
           <div class="slide-content">
-            <div class="slide-label">Galeria de Projetos</div>
-            <h1 class="slide-title">Conheça Nossos Projetos</h1>
-            <p class="slide-desc">Projetos residenciais, comerciais e industriais desenvolvidos com excelência técnica e visão criativa.</p>
-            <a href="#projetos" class="slide-cta">Ver Projetos <i class="fas fa-arrow-right"></i></a>
+            <div class="slide-label" id="slide2label">Galeria de Projetos</div>
+            <h1 class="slide-title" id="slide2titulo">Conheça Nossos Projetos</h1>
+            <p class="slide-desc" id="slide2desc">Projetos residenciais, comerciais e industriais desenvolvidos com excelência técnica e visão criativa.</p>
+            <a href="#projetos" class="slide-cta" id="slide2cta">Ver Projetos <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
         <div class="swiper-slide">
-          <div class="slide-bg" style="background-image:url('imagens/galeria/pexels-1460648-3172740.jpg')"></div>
+          <div class="slide-bg" id="slide3bg" style="background-image:url('imagens/galeria/pexels-1460648-3172740.jpg')"></div>
           <div class="slide-overlay"></div>
           <div class="slide-content">
-            <div class="slide-label">Desde 2005</div>
-            <h1 class="slide-title">Experiência que Constrói Confiança</h1>
-            <p class="slide-desc">Mais de 19 anos atuando na construção civil, industrial, comercial e residencial em São Roque e região.</p>
-            <a href="#sobre" class="slide-cta">Conheça a Empresa <i class="fas fa-arrow-right"></i></a>
+            <div class="slide-label" id="slide3label">Desde 2005</div>
+            <h1 class="slide-title" id="slide3titulo">Experiência que Constrói Confiança</h1>
+            <p class="slide-desc" id="slide3desc">Mais de 19 anos atuando na construção civil, industrial, comercial e residencial em São Roque e região.</p>
+            <a href="#sobre" class="slide-cta" id="slide3cta">Conheça a Empresa <i class="fas fa-arrow-right"></i></a>
           </div>
         </div>
 
@@ -551,6 +551,19 @@ async function loadSiteSettings() {
     const msg = encodeURIComponent(s['contato.whatsapp.msg'] || 'Olá! Gostaria de solicitar um orçamento.');
     const waHref = `https://wa.me/${num}?text=${msg}`;
     document.querySelectorAll('.wa-link').forEach(el => el.href = waHref);
+    // Hero slides
+    [1,2,3].forEach(n => {
+      set(`slide${n}label`,  s[`slide${n}.label`]);
+      set(`slide${n}titulo`, s[`slide${n}.titulo`]);
+      set(`slide${n}desc`,   s[`slide${n}.desc`]);
+      const cta = document.getElementById(`slide${n}cta`);
+      if (cta) {
+        if (s[`slide${n}.cta.texto`]) cta.childNodes[0].textContent = s[`slide${n}.cta.texto`] + ' ';
+        if (s[`slide${n}.cta.href`])  cta.href = s[`slide${n}.cta.href`];
+      }
+      const bg = document.getElementById(`slide${n}bg`);
+      if (bg && s[`slide${n}.imagem`]) bg.style.backgroundImage = `url('/${s[`slide${n}.imagem`]}')`;
+    });
     // Diferenciais
     [1,2,3,4,5,6].forEach(n => {
       set(`dif${n}titulo`, s[`dif${n}.titulo`]);

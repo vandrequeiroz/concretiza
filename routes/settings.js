@@ -28,10 +28,21 @@ router.put('/', requireAuth, (req, res) => {
 // POST /api/settings/foto — upload foto da seção Quem Somos
 router.post('/foto', requireAuth, upload.single('foto'), (req, res) => {
   if (!req.file) return res.status(400).json({ error: 'Nenhum arquivo enviado' });
-  const path = 'uploads/' + req.file.filename;
+  const filePath = 'uploads/' + req.file.filename;
   db.prepare('INSERT INTO settings (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value')
-    .run('sobre.foto', path);
-  res.json({ path });
+    .run('sobre.foto', filePath);
+  res.json({ path: filePath });
+});
+
+// POST /api/settings/imagem — upload genérico de imagem de seção (key no body)
+router.post('/imagem', requireAuth, upload.single('imagem'), (req, res) => {
+  if (!req.file) return res.status(400).json({ error: 'Nenhum arquivo enviado' });
+  const key = req.body.key;
+  if (!key) return res.status(400).json({ error: 'key obrigatória' });
+  const filePath = 'uploads/' + req.file.filename;
+  db.prepare('INSERT INTO settings (key,value) VALUES (?,?) ON CONFLICT(key) DO UPDATE SET value=excluded.value')
+    .run(key, filePath);
+  res.json({ path: filePath });
 });
 
 module.exports = router;

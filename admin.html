@@ -314,6 +314,10 @@
     <!-- Adicionar novos módulos aqui no futuro -->
 
     <span class="nav-section" style="margin-top:8px">Conteúdo do Site</span>
+    <button class="nav-link" data-page="slides">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="2" y="7" width="20" height="14" rx="2"/><path d="M16 3H8"/><path d="M12 3v4"/></svg>
+      Slides
+    </button>
     <button class="nav-link" data-page="sobre">
       <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
       Quem Somos
@@ -371,6 +375,14 @@
       </div>
     </div>
     <div class="proj-grid" id="projGrid"></div>
+  </div>
+
+  <!-- PAGE: SLIDES -->
+  <div class="page" id="page-slides">
+    <div class="page-header" style="margin-bottom:8px">
+      <div class="page-header-left"><h1>Slides</h1><p>Edite os 3 slides do carrossel principal</p></div>
+    </div>
+    <div id="slidesCardsAdmin" style="display:flex;flex-direction:column;gap:20px"></div>
   </div>
 
   <!-- PAGE: QUEM SOMOS -->
@@ -673,7 +685,7 @@ document.getElementById('confirmCancel').onclick = () =>
 // ════════════════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════════════════
-const pageTitles = { projects: 'Projetos', sobre: 'Quem Somos', contato: 'Contato', diferenciais: 'Diferenciais', projsec: 'Seção Projetos', users: 'Usuários' };
+const pageTitles = { projects: 'Projetos', slides: 'Slides', sobre: 'Quem Somos', contato: 'Contato', diferenciais: 'Diferenciais', projsec: 'Seção Projetos', users: 'Usuários' };
 
 document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -685,6 +697,7 @@ document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
     document.getElementById('pageTitle').textContent = pageTitles[page] || page;
     document.getElementById('btnNew').style.display = page === 'projects' ? '' : 'none';
     if (page === 'users')        loadUsers();
+    if (page === 'slides')       loadSettingsSlides();
     if (page === 'sobre')        loadSettingsSobre();
     if (page === 'contato')      loadSettingsContato();
     if (page === 'diferenciais') loadSettingsDif();
@@ -1062,6 +1075,76 @@ async function putSettings(body, btnId, label) {
     toast('Salvo com sucesso!');
   } catch(e) { toast(e.message, 'error'); }
   finally { btn.disabled = false; btn.textContent = label; }
+}
+
+// ─── Slides ──────────────────────────────────────────
+async function loadSettingsSlides() {
+  try {
+    const s = await api('/api/settings');
+    const wrap = document.getElementById('slidesCardsAdmin');
+    wrap.innerHTML = '';
+    [1,2,3].forEach(n => {
+      const img = s[`slide${n}.imagem`] || '';
+      const card = document.createElement('div');
+      card.style.cssText = 'background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px';
+      card.innerHTML = `
+        <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px">Slide ${n}</p>
+        <div style="display:grid;grid-template-columns:180px 1fr;gap:20px;align-items:start">
+          <div>
+            <div id="slide${n}Preview" style="width:100%;height:100px;border-radius:var(--radius);border:1px solid var(--border);background:#111 url('/${img}') center/cover no-repeat;margin-bottom:8px"></div>
+            <label class="btn-secondary" style="cursor:pointer;display:flex;align-items:center;justify-content:center;gap:6px;font-size:12px">
+              <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="13" height="13"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+              Trocar imagem
+              <input type="file" data-slide="${n}" class="slide-img-input" accept="image/*" style="display:none">
+            </label>
+          </div>
+          <div style="display:flex;flex-direction:column;gap:10px">
+            <div class="form-group" style="margin-bottom:0"><label>Label (destaque)</label><input type="text" id="slide${n}LabelAdmin" value="${(s[`slide${n}.label`]||'').replace(/"/g,'&quot;')}"></div>
+            <div class="form-group" style="margin-bottom:0"><label>Título</label><input type="text" id="slide${n}TituloAdmin" value="${(s[`slide${n}.titulo`]||'').replace(/"/g,'&quot;')}"></div>
+            <div class="form-group" style="margin-bottom:0"><label>Descrição</label><textarea id="slide${n}DescAdmin" rows="2">${s[`slide${n}.desc`]||''}</textarea></div>
+            <div style="display:grid;grid-template-columns:1fr 1fr;gap:10px">
+              <div class="form-group" style="margin-bottom:0"><label>Texto do botão</label><input type="text" id="slide${n}CtaTextoAdmin" value="${(s[`slide${n}.cta.texto`]||'').replace(/"/g,'&quot;')}"></div>
+              <div class="form-group" style="margin-bottom:0"><label>Link do botão</label><input type="text" id="slide${n}CtaHrefAdmin" placeholder="#contato" value="${(s[`slide${n}.cta.href`]||'').replace(/"/g,'&quot;')}"></div>
+            </div>
+            <div style="display:flex;justify-content:flex-end">
+              <button class="btn-primary" onclick="saveSlide(${n})">Salvar Slide ${n}</button>
+            </div>
+          </div>
+        </div>`;
+      wrap.appendChild(card);
+    });
+
+    // upload listeners
+    document.querySelectorAll('.slide-img-input').forEach(input => {
+      input.addEventListener('change', async function() {
+        const n = this.dataset.slide;
+        const file = this.files[0];
+        if (!file) return;
+        const fd = new FormData();
+        fd.append('imagem', file);
+        fd.append('key', `slide${n}.imagem`);
+        try {
+          const res = await api('/api/settings/imagem', { method: 'POST', body: fd });
+          document.getElementById(`slide${n}Preview`).style.backgroundImage = `url('/${res.path}')`;
+          toast(`Imagem do slide ${n} atualizada!`);
+        } catch(e) { toast(e.message, 'error'); }
+        this.value = '';
+      });
+    });
+  } catch(e) { toast('Erro ao carregar', 'error'); }
+}
+
+async function saveSlide(n) {
+  const body = {};
+  body[`slide${n}.label`]     = document.getElementById(`slide${n}LabelAdmin`).value.trim();
+  body[`slide${n}.titulo`]    = document.getElementById(`slide${n}TituloAdmin`).value.trim();
+  body[`slide${n}.desc`]      = document.getElementById(`slide${n}DescAdmin`).value.trim();
+  body[`slide${n}.cta.texto`] = document.getElementById(`slide${n}CtaTextoAdmin`).value.trim();
+  body[`slide${n}.cta.href`]  = document.getElementById(`slide${n}CtaHrefAdmin`).value.trim();
+  try {
+    await api('/api/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    toast(`Slide ${n} salvo!`);
+  } catch(e) { toast(e.message, 'error'); }
 }
 
 // ─── Quem Somos ──────────────────────────────────────

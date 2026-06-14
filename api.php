@@ -190,6 +190,24 @@ if ($parts[0] === 'projects') {
 // /settings
 if ($parts[0] === 'settings') {
 
+    // POST /settings/imagem — upload genérico de imagem de seção
+    if ($method === 'POST' && ($parts[1] ?? '') === 'imagem') {
+        requireAuth();
+        if (empty($_FILES['imagem']) || $_FILES['imagem']['error'] !== UPLOAD_ERR_OK) jsonError('Nenhum arquivo enviado');
+        $key = $_POST['key'] ?? '';
+        if (!$key) jsonError('key obrigatória');
+        $file = $_FILES['imagem'];
+        $ext  = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (!in_array($ext, ['jpg','jpeg','png','webp'])) jsonError('Formato não permitido');
+        $uploadDir = __DIR__ . '/uploads/';
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+        $filename = uniqid('img_', true) . '.' . $ext;
+        if (!move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) jsonError('Erro ao salvar arquivo');
+        $path = 'uploads/' . $filename;
+        $pdo->prepare('INSERT OR REPLACE INTO settings (key,value) VALUES (?,?)')->execute([$key, $path]);
+        jsonResponse(['path' => $path]);
+    }
+
     // POST /settings/foto — upload foto da seção Quem Somos
     if ($method === 'POST' && ($parts[1] ?? '') === 'foto') {
         requireAuth();
