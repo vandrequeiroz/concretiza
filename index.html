@@ -217,34 +217,34 @@
     </div>
     <div class="dif-grid">
       <div class="dif-item" data-aos="fade-up">
-        <i class="fas fa-certificate"></i>
-        <h3>Qualidade Garantida</h3>
-        <p>Melhores materiais e técnicas construtivas para assegurar durabilidade e excelência em cada projeto.</p>
+        <i id="dif1icone" class="fas fa-certificate"></i>
+        <h3 id="dif1titulo">Qualidade Garantida</h3>
+        <p id="dif1texto">Melhores materiais e técnicas construtivas para assegurar durabilidade e excelência em cada projeto.</p>
       </div>
       <div class="dif-item" data-aos="fade-up" data-aos-delay="80">
-        <i class="fas fa-clock"></i>
-        <h3>Prazo no Cronograma</h3>
-        <p>Cumprimos rigorosamente os prazos com planejamento detalhado e acompanhamento constante de cada etapa.</p>
+        <i id="dif2icone" class="fas fa-clock"></i>
+        <h3 id="dif2titulo">Prazo no Cronograma</h3>
+        <p id="dif2texto">Cumprimos rigorosamente os prazos com planejamento detalhado e acompanhamento constante de cada etapa.</p>
       </div>
       <div class="dif-item" data-aos="fade-up" data-aos-delay="160">
-        <i class="fas fa-users"></i>
-        <h3>Equipe Especializada</h3>
-        <p>Profissionais treinados e atualizados com as inovações do setor, garantindo soluções técnicas de alto nível.</p>
+        <i id="dif3icone" class="fas fa-users"></i>
+        <h3 id="dif3titulo">Equipe Especializada</h3>
+        <p id="dif3texto">Profissionais treinados e atualizados com as inovações do setor, garantindo soluções técnicas de alto nível.</p>
       </div>
       <div class="dif-item" data-aos="fade-up">
-        <i class="fas fa-handshake"></i>
-        <h3>Transparência Total</h3>
-        <p>Relatórios periódicos, controle financeiro detalhado e comunicação direta e honesta com o cliente.</p>
+        <i id="dif4icone" class="fas fa-handshake"></i>
+        <h3 id="dif4titulo">Transparência Total</h3>
+        <p id="dif4texto">Relatórios periódicos, controle financeiro detalhado e comunicação direta e honesta com o cliente.</p>
       </div>
       <div class="dif-item" data-aos="fade-up" data-aos-delay="80">
-        <i class="fas fa-leaf"></i>
-        <h3>Sustentabilidade</h3>
-        <p>Soluções construtivas que respeitam o meio ambiente com uso consciente de recursos e técnicas sustentáveis.</p>
+        <i id="dif5icone" class="fas fa-leaf"></i>
+        <h3 id="dif5titulo">Sustentabilidade</h3>
+        <p id="dif5texto">Soluções construtivas que respeitam o meio ambiente com uso consciente de recursos e técnicas sustentáveis.</p>
       </div>
       <div class="dif-item" data-aos="fade-up" data-aos-delay="160">
-        <i class="fas fa-shield-alt"></i>
-        <h3>Segurança em Obra</h3>
-        <p>Normas de segurança do trabalho rigorosamente aplicadas para proteger nossa equipe e todos os envolvidos.</p>
+        <i id="dif6icone" class="fas fa-shield-alt"></i>
+        <h3 id="dif6titulo">Segurança em Obra</h3>
+        <p id="dif6texto">Normas de segurança do trabalho rigorosamente aplicadas para proteger nossa equipe e todos os envolvidos.</p>
       </div>
     </div>
   </section>
@@ -551,6 +551,13 @@ async function loadSiteSettings() {
     const msg = encodeURIComponent(s['contato.whatsapp.msg'] || 'Olá! Gostaria de solicitar um orçamento.');
     const waHref = `https://wa.me/${num}?text=${msg}`;
     document.querySelectorAll('.wa-link').forEach(el => el.href = waHref);
+    // Diferenciais
+    [1,2,3,4,5,6].forEach(n => {
+      set(`dif${n}titulo`, s[`dif${n}.titulo`]);
+      set(`dif${n}texto`,  s[`dif${n}.texto`]);
+      const icEl = document.getElementById(`dif${n}icone`);
+      if (icEl && s[`dif${n}.icone`]) icEl.className = s[`dif${n}.icone`];
+    });
   } catch(e) {}
 }
 loadSiteSettings();

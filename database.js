@@ -62,6 +62,13 @@ const defaults = {
   'contato.email.label':     'Respondemos em até 24h',
   'contato.endereco':        'Praça da República, 189 — Centro',
   'contato.endereco.label':  'São Roque/SP — Visitas com agendamento',
+  // Diferenciais
+  'dif1.icone': 'fas fa-certificate', 'dif1.titulo': 'Qualidade Garantida',   'dif1.texto': 'Melhores materiais e técnicas construtivas para assegurar durabilidade e excelência em cada projeto.',
+  'dif2.icone': 'fas fa-clock',       'dif2.titulo': 'Prazo no Cronograma',   'dif2.texto': 'Cumprimos rigorosamente os prazos com planejamento detalhado e acompanhamento constante de cada etapa.',
+  'dif3.icone': 'fas fa-users',       'dif3.titulo': 'Equipe Especializada',  'dif3.texto': 'Profissionais treinados e atualizados com as inovações do setor, garantindo soluções técnicas de alto nível.',
+  'dif4.icone': 'fas fa-handshake',   'dif4.titulo': 'Transparência Total',   'dif4.texto': 'Relatórios periódicos, controle financeiro detalhado e comunicação direta e honesta com o cliente.',
+  'dif5.icone': 'fas fa-leaf',        'dif5.titulo': 'Sustentabilidade',      'dif5.texto': 'Soluções construtivas que respeitam o meio ambiente com uso consciente de recursos e técnicas sustentáveis.',
+  'dif6.icone': 'fas fa-shield-alt',  'dif6.titulo': 'Segurança em Obra',     'dif6.texto': 'Normas de segurança do trabalho rigorosamente aplicadas para proteger nossa equipe e todos os envolvidos.',
 };
 const insertSetting = db.prepare('INSERT OR IGNORE INTO settings (key, value) VALUES (?, ?)');
 Object.entries(defaults).forEach(([k, v]) => insertSetting.run(k, v));
