@@ -189,6 +189,27 @@ if ($parts[0] === 'projects') {
 
 // /settings
 if ($parts[0] === 'settings') {
+
+    // POST /settings/foto — upload foto da seção Quem Somos
+    if ($method === 'POST' && ($parts[1] ?? '') === 'foto') {
+        requireAuth();
+        if (empty($_FILES['foto']) || $_FILES['foto']['error'] !== UPLOAD_ERR_OK) {
+            jsonError('Nenhum arquivo enviado');
+        }
+        $file = $_FILES['foto'];
+        $ext  = strtolower(pathinfo($file['name'], PATHINFO_EXTENSION));
+        if (!in_array($ext, ['jpg','jpeg','png','webp'])) jsonError('Formato não permitido');
+
+        $uploadDir = __DIR__ . '/uploads/';
+        if (!is_dir($uploadDir)) mkdir($uploadDir, 0755, true);
+        $filename = 'sobre_' . uniqid('', true) . '.' . $ext;
+        if (!move_uploaded_file($file['tmp_name'], $uploadDir . $filename)) jsonError('Erro ao salvar arquivo');
+
+        $path = 'uploads/' . $filename;
+        $pdo->prepare('INSERT OR REPLACE INTO settings (key,value) VALUES (?,?)')->execute(['sobre.foto', $path]);
+        jsonResponse(['path' => $path]);
+    }
+
     if ($method === 'GET') {
         $st = $pdo->query('SELECT key, value FROM settings');
         $rows = $st->fetchAll();

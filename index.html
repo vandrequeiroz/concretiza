@@ -142,33 +142,33 @@
   <section id="sobre" class="sec">
     <div class="about-grid">
       <div class="about-img-wrap" data-aos="fade-right">
-        <img src="imagens/concre_escritorio.jpg" alt="Concretiza Engenharia">
+        <img id="sobreFoto" src="imagens/concre_escritorio.jpg" alt="Concretiza Engenharia">
         <div class="about-accent"></div>
       </div>
       <div data-aos="fade-left">
         <span class="sec-lbl">Quem Somos</span>
-        <h2 class="sec-title">Sobre a Concretiza</h2>
+        <h2 class="sec-title" id="sobreTitulo">Sobre a Concretiza</h2>
         <div class="sec-divider"></div>
-        <p class="sec-text">
+        <p class="sec-text" id="sobreP1">
           Empresa fundada em 2005, atua na área da construção civil, industrial, comercial e residencial.
           Busca constantemente a realização de trabalhos de alta qualidade de modo a superar as expectativas
           de nossos clientes e parceiros de negócios.
         </p>
         <br>
-        <p class="sec-text">
+        <p class="sec-text" id="sobreP2">
           Atendemos com soluções confiáveis desde a geração de desenhos, especificações técnicas e lista de
           materiais até informações precisas das etapas do empreendimento.
         </p>
         <br>
-        <p class="sec-text">
+        <p class="sec-text" id="sobreP3">
           A CONCRETIZA tem a constante preocupação em manter sua equipe treinada e estruturada, buscando
           inovações e tecnologia para oferecer excelência em sua prestação de serviços.
         </p>
         <div class="about-stats">
-          <div class="about-stat"><div class="n">+19</div><div class="l">Anos de Mercado</div></div>
-          <div class="about-stat"><div class="n">+100</div><div class="l">Projetos Entregues</div></div>
-          <div class="about-stat"><div class="n">4</div><div class="l">Áreas de Atuação</div></div>
-          <div class="about-stat"><div class="n">100%</div><div class="l">Comprometimento</div></div>
+          <div class="about-stat"><div class="n" id="stat1n">+19</div><div class="l" id="stat1l">Anos de Mercado</div></div>
+          <div class="about-stat"><div class="n" id="stat2n">+100</div><div class="l" id="stat2l">Projetos Entregues</div></div>
+          <div class="about-stat"><div class="n" id="stat3n">4</div><div class="l" id="stat3l">Áreas de Atuação</div></div>
+          <div class="about-stat"><div class="n" id="stat4n">100%</div><div class="l" id="stat4l">Comprometimento</div></div>
         </div>
       </div>
     </div>
@@ -329,11 +329,11 @@
         </button>
       </form>
       <div class="ct-info" data-aos="fade-left">
-        <div class="ct-det"><i class="fas fa-phone-alt"></i><div><strong>(11) 4712-8099</strong><span>Telefone Fixo — Seg a Sex, 8h às 18h</span></div></div>
-        <div class="ct-det"><i class="fab fa-whatsapp"></i><div><strong>(11) 9 6375-4627</strong><span>WhatsApp — Atendimento rápido</span></div></div>
-        <div class="ct-det"><i class="fas fa-envelope"></i><div><strong>projetos@concretizaengenharia.com.br</strong><span>Respondemos em até 24h</span></div></div>
-        <div class="ct-det"><i class="fas fa-map-marker-alt"></i><div><strong>Praça da República, 189 — Centro</strong><span>São Roque/SP — Visitas com agendamento</span></div></div>
-        <a class="wa-btn"
+        <div class="ct-det"><i class="fas fa-phone-alt"></i><div><strong id="ctTelefone">(11) 4712-8099</strong><span id="ctTelefoneLabel">Telefone Fixo — Seg a Sex, 8h às 18h</span></div></div>
+        <div class="ct-det"><i class="fab fa-whatsapp"></i><div><strong id="ctWhatsapp">(11) 9 6375-4627</strong><span id="ctWhatsappLabel">WhatsApp — Atendimento rápido</span></div></div>
+        <div class="ct-det"><i class="fas fa-envelope"></i><div><strong id="ctEmail">projetos@concretizaengenharia.com.br</strong><span id="ctEmailLabel">Respondemos em até 24h</span></div></div>
+        <div class="ct-det"><i class="fas fa-map-marker-alt"></i><div><strong id="ctEndereco">Praça da República, 189 — Centro</strong><span id="ctEnderecoLabel">São Roque/SP — Visitas com agendamento</span></div></div>
+        <a class="wa-btn wa-link"
            href="https://wa.me/5511963754627?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
            target="_blank" rel="noopener">
           <i class="fab fa-whatsapp"></i> Chamar no WhatsApp
@@ -384,7 +384,7 @@
 <div class="mob-bar">
   <div class="mob-bar-inner">
     <a class="mob-bar-btn" href="#contato"><i class="fas fa-envelope"></i> Orçamento</a>
-    <a class="mob-bar-btn"
+    <a class="mob-bar-btn wa-link"
        href="https://wa.me/5511963754627?text=Ol%C3%A1!%20Gostaria%20de%20solicitar%20um%20or%C3%A7amento."
        target="_blank" rel="noopener"><i class="fab fa-whatsapp"></i> WhatsApp</a>
   </div>
@@ -522,6 +522,38 @@ function lbNav(d) {
 }
 
 loadHomeProjects();
+
+async function loadSiteSettings() {
+  try {
+    const s = await fetch('/api/settings').then(r => r.json());
+    const set = (id, val) => { const el = document.getElementById(id); if (el && val) el.textContent = val; };
+    // Quem Somos
+    set('sobreTitulo', s['sobre.titulo']);
+    set('sobreP1',     s['sobre.p1']);
+    set('sobreP2',     s['sobre.p2']);
+    set('sobreP3',     s['sobre.p3']);
+    set('stat1n', s['sobre.stat1.n']); set('stat1l', s['sobre.stat1.l']);
+    set('stat2n', s['sobre.stat2.n']); set('stat2l', s['sobre.stat2.l']);
+    set('stat3n', s['sobre.stat3.n']); set('stat3l', s['sobre.stat3.l']);
+    set('stat4n', s['sobre.stat4.n']); set('stat4l', s['sobre.stat4.l']);
+    if (s['sobre.foto']) document.getElementById('sobreFoto').src = '/' + s['sobre.foto'];
+    // Contato
+    set('ctTelefone',      s['contato.telefone']);
+    set('ctTelefoneLabel', s['contato.telefone.label']);
+    set('ctWhatsapp',      s['contato.whatsapp']);
+    set('ctWhatsappLabel', s['contato.whatsapp.label']);
+    set('ctEmail',         s['contato.email']);
+    set('ctEmailLabel',    s['contato.email.label']);
+    set('ctEndereco',      s['contato.endereco']);
+    set('ctEnderecoLabel', s['contato.endereco.label']);
+    // links WhatsApp
+    const num = s['contato.whatsapp.numero'] || '5511963754627';
+    const msg = encodeURIComponent(s['contato.whatsapp.msg'] || 'Olá! Gostaria de solicitar um orçamento.');
+    const waHref = `https://wa.me/${num}?text=${msg}`;
+    document.querySelectorAll('.wa-link').forEach(el => el.href = waHref);
+  } catch(e) {}
+}
+loadSiteSettings();
 
 document.getElementById('modal').addEventListener('click', e => {
   if (e.target === document.getElementById('modal')) closeModal();

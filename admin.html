@@ -290,10 +290,24 @@
     </button>
     <!-- Adicionar novos módulos aqui no futuro -->
 
+    <span class="nav-section" style="margin-top:8px">Conteúdo do Site</span>
+    <button class="nav-link" data-page="sobre">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M20 21v-2a4 4 0 0 0-4-4H8a4 4 0 0 0-4 4v2"/><circle cx="12" cy="7" r="4"/></svg>
+      Quem Somos
+    </button>
+    <button class="nav-link" data-page="contato">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M22 16.92v3a2 2 0 0 1-2.18 2 19.79 19.79 0 0 1-8.63-3.07A19.5 19.5 0 0 1 4.69 12a19.79 19.79 0 0 1-3.07-8.67A2 2 0 0 1 3.62 2h3a2 2 0 0 1 2 1.72c.127.96.361 1.903.7 2.81a2 2 0 0 1-.45 2.11L7.91 9.91a16 16 0 0 0 6.08 6.08l.91-.91a2 2 0 0 1 2.11-.45c.907.339 1.85.573 2.81.7A2 2 0 0 1 22 17.18z"/></svg>
+      Contato
+    </button>
+    <button class="nav-link" data-page="projsec">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><rect x="3" y="3" width="7" height="7" rx="1"/><rect x="14" y="3" width="7" height="7" rx="1"/><rect x="3" y="14" width="7" height="7" rx="1"/><rect x="14" y="14" width="7" height="7" rx="1"/></svg>
+      Seção Projetos
+    </button>
+
     <span class="nav-section" style="margin-top:8px">Sistema</span>
-    <button class="nav-link" data-page="settings">
-      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><circle cx="12" cy="12" r="3"/><path d="M19.4 15a1.65 1.65 0 0 0 .33 1.82l.06.06a2 2 0 0 1-2.83 2.83l-.06-.06a1.65 1.65 0 0 0-1.82-.33 1.65 1.65 0 0 0-1 1.51V21a2 2 0 0 1-4 0v-.09A1.65 1.65 0 0 0 9 19.4a1.65 1.65 0 0 0-1.82.33l-.06.06a2 2 0 0 1-2.83-2.83l.06-.06A1.65 1.65 0 0 0 4.68 15a1.65 1.65 0 0 0-1.51-1H3a2 2 0 0 1 0-4h.09A1.65 1.65 0 0 0 4.6 9a1.65 1.65 0 0 0-.33-1.82l-.06-.06a2 2 0 0 1 2.83-2.83l.06.06A1.65 1.65 0 0 0 9 4.68a1.65 1.65 0 0 0 1-1.51V3a2 2 0 0 1 4 0v.09a1.65 1.65 0 0 0 1 1.51 1.65 1.65 0 0 0 1.82-.33l.06-.06a2 2 0 0 1 2.83 2.83l-.06.06A1.65 1.65 0 0 0 19.4 9a1.65 1.65 0 0 0 1.51 1H21a2 2 0 0 1 0 4h-.09a1.65 1.65 0 0 0-1.51 1z"/></svg>
-      Configurações
+    <button class="nav-link" data-page="users">
+      <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="1.7" viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 0 0-4-4H5a4 4 0 0 0-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 0 0-3-3.87"/><path d="M16 3.13a4 4 0 0 1 0 7.75"/></svg>
+      Usuários
     </button>
   </nav>
   <div class="sidebar-footer">
@@ -332,22 +346,95 @@
     <div class="proj-grid" id="projGrid"></div>
   </div>
 
-  <!-- PAGE: SETTINGS -->
-  <div class="page" id="page-settings">
-
-    <!-- Textos do site -->
+  <!-- PAGE: QUEM SOMOS -->
+  <div class="page" id="page-sobre">
     <div class="page-header" style="margin-bottom:8px">
-      <div class="page-header-left">
-        <h1>Textos do Site</h1>
-        <p>Edite os textos exibidos nas páginas públicas</p>
+      <div class="page-header-left"><h1>Quem Somos</h1><p>Edite os textos e a foto da seção "Quem Somos"</p></div>
+    </div>
+    <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px">
+      <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px">Foto</p>
+      <div style="display:flex;align-items:center;gap:16px;flex-wrap:wrap">
+        <img id="sobrePhotoPreview" src="imagens/concre_escritorio.jpg" style="width:140px;height:96px;object-fit:cover;border-radius:var(--radius);border:1px solid var(--border)">
+        <div>
+          <label class="btn-secondary" style="cursor:pointer;display:inline-flex;align-items:center;gap:6px">
+            <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="14" height="14"><path d="M21 15v4a2 2 0 0 1-2 2H5a2 2 0 0 1-2-2v-4"/><polyline points="17 8 12 3 7 8"/><line x1="12" y1="3" x2="12" y2="15"/></svg>
+            Trocar foto
+            <input type="file" id="sobrePhotoInput" accept="image/*" style="display:none">
+          </label>
+          <p style="font-size:11.5px;color:var(--txt-m);margin-top:6px">JPG, PNG ou WEBP. A foto será salva automaticamente ao selecionar.</p>
+        </div>
       </div>
     </div>
-
-    <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:32px">
-      <div style="display:flex;align-items:center;gap:8px;margin-bottom:20px">
-        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="var(--green)" stroke-width="1.7" viewBox="0 0 24 24" width="18" height="18"><rect x="3" y="3" width="18" height="18" rx="2"/><line x1="3" y1="9" x2="21" y2="9"/><path d="M9 21V9"/></svg>
-        <span style="font-size:13px;font-weight:700">Página de Projetos — Cabeçalho</span>
+    <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px;margin-bottom:20px">
+      <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px">Textos</p>
+      <div class="form-group">
+        <label>Título</label>
+        <input type="text" id="sSobreTitulo" placeholder="Sobre a Concretiza">
       </div>
+      <div class="form-group">
+        <label>Parágrafo 1</label>
+        <textarea id="sSobreP1" rows="3"></textarea>
+      </div>
+      <div class="form-group">
+        <label>Parágrafo 2</label>
+        <textarea id="sSobreP2" rows="3"></textarea>
+      </div>
+      <div class="form-group" style="margin-bottom:0">
+        <label>Parágrafo 3</label>
+        <textarea id="sSobreP3" rows="3"></textarea>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button class="btn-primary" id="btnSaveSobre">Salvar Textos</button>
+      </div>
+    </div>
+    <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+      <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:16px">Estatísticas</p>
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group" style="margin-bottom:0"><label>Stat 1 — Valor</label><input type="text" id="sStat1n" placeholder="+19"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 1 — Label</label><input type="text" id="sStat1l" placeholder="Anos de Mercado"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 2 — Valor</label><input type="text" id="sStat2n" placeholder="+100"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 2 — Label</label><input type="text" id="sStat2l" placeholder="Projetos Entregues"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 3 — Valor</label><input type="text" id="sStat3n" placeholder="4"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 3 — Label</label><input type="text" id="sStat3l" placeholder="Áreas de Atuação"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 4 — Valor</label><input type="text" id="sStat4n" placeholder="100%"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Stat 4 — Label</label><input type="text" id="sStat4l" placeholder="Comprometimento"></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button class="btn-primary" id="btnSaveStats">Salvar Estatísticas</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: CONTATO -->
+  <div class="page" id="page-contato">
+    <div class="page-header" style="margin-bottom:8px">
+      <div class="page-header-left"><h1>Contato</h1><p>Edite as informações de contato exibidas no site</p></div>
+    </div>
+    <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
+      <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <div class="form-group" style="margin-bottom:0"><label>Telefone</label><input type="text" id="sCtTelefone" placeholder="(11) 4712-8099"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Label do Telefone</label><input type="text" id="sCtTelefoneLabel" placeholder="Telefone Fixo — Seg a Sex, 8h às 18h"></div>
+        <div class="form-group" style="margin-bottom:0"><label>WhatsApp (exibição)</label><input type="text" id="sCtWhatsapp" placeholder="(11) 9 6375-4627"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Label do WhatsApp</label><input type="text" id="sCtWhatsappLabel" placeholder="WhatsApp — Atendimento rápido"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Número WhatsApp (só dígitos)</label><input type="text" id="sCtWhatsappNumero" placeholder="5511963754627"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Mensagem padrão WhatsApp</label><input type="text" id="sCtWhatsappMsg" placeholder="Olá! Gostaria de solicitar um orçamento."></div>
+        <div class="form-group" style="margin-bottom:0"><label>E-mail</label><input type="text" id="sCtEmail" placeholder="projetos@concretizaengenharia.com.br"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Label do E-mail</label><input type="text" id="sCtEmailLabel" placeholder="Respondemos em até 24h"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Endereço</label><input type="text" id="sCtEndereco" placeholder="Praça da República, 189 — Centro"></div>
+        <div class="form-group" style="margin-bottom:0"><label>Label do Endereço</label><input type="text" id="sCtEnderecoLabel" placeholder="São Roque/SP — Visitas com agendamento"></div>
+      </div>
+      <div style="display:flex;justify-content:flex-end;margin-top:16px">
+        <button class="btn-primary" id="btnSaveContato">Salvar Contato</button>
+      </div>
+    </div>
+  </div>
+
+  <!-- PAGE: SEÇÃO PROJETOS -->
+  <div class="page" id="page-projsec">
+    <div class="page-header" style="margin-bottom:8px">
+      <div class="page-header-left"><h1>Seção Projetos</h1><p>Edite o cabeçalho da página pública de projetos</p></div>
+    </div>
+    <div class="settings-card" style="background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:24px">
       <div class="form-group">
         <label>Título</label>
         <input type="text" id="sProjTitle" placeholder="Nossos Projetos">
@@ -357,16 +444,15 @@
         <textarea id="sProjSubtitle" rows="2" placeholder="Descrição exibida abaixo do título..."></textarea>
       </div>
       <div style="display:flex;justify-content:flex-end;margin-top:16px">
-        <button class="btn-primary" id="btnSaveTexts">Salvar Textos</button>
+        <button class="btn-primary" id="btnSaveTexts">Salvar</button>
       </div>
     </div>
+  </div>
 
-    <!-- Usuários -->
+  <!-- PAGE: USUÁRIOS -->
+  <div class="page" id="page-users">
     <div class="page-header">
-      <div class="page-header-left">
-        <h1>Usuários</h1>
-        <p>Gerencie os usuários com acesso ao painel</p>
-      </div>
+      <div class="page-header-left"><h1>Usuários</h1><p>Gerencie os usuários com acesso ao painel</p></div>
       <button class="btn-add" id="btnNewUser">
         <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2.5" viewBox="0 0 24 24"><line x1="12" y1="5" x2="12" y2="19"/><line x1="5" y1="12" x2="19" y2="12"/></svg>
         Novo Usuário
@@ -375,13 +461,7 @@
     <div class="table-wrap">
       <table id="usersTable">
         <thead>
-          <tr>
-            <th>Nome</th>
-            <th>Email</th>
-            <th>Nível</th>
-            <th>Criado em</th>
-            <th></th>
-          </tr>
+          <tr><th>Nome</th><th>Email</th><th>Nível</th><th>Criado em</th><th></th></tr>
         </thead>
         <tbody id="usersBody">
           <tr><td colspan="5" style="text-align:center;color:var(--txt-m);padding:32px">Carregando...</td></tr>
@@ -541,7 +621,7 @@ document.getElementById('confirmCancel').onclick = () =>
 // ════════════════════════════════════════════════════
 // NAVIGATION
 // ════════════════════════════════════════════════════
-const pageTitles = { projects: 'Projetos', settings: 'Configurações' };
+const pageTitles = { projects: 'Projetos', sobre: 'Quem Somos', contato: 'Contato', projsec: 'Seção Projetos', users: 'Usuários' };
 
 document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
   btn.addEventListener('click', () => {
@@ -552,7 +632,10 @@ document.querySelectorAll('.nav-link[data-page]').forEach(btn => {
     document.getElementById(`page-${page}`).classList.add('active');
     document.getElementById('pageTitle').textContent = pageTitles[page] || page;
     document.getElementById('btnNew').style.display = page === 'projects' ? '' : 'none';
-    if (page === 'settings') loadUsers();
+    if (page === 'users')    loadUsers();
+    if (page === 'sobre')    loadSettingsSobre();
+    if (page === 'contato')  loadSettingsContato();
+    if (page === 'projsec')  loadSettingsProjSec();
   });
 });
 
@@ -916,38 +999,106 @@ document.getElementById('btnSaveUser').onclick      = saveUser;
 document.getElementById('userModalOverlay').addEventListener('click', e => { if (e.target === e.currentTarget) closeUserModal(); });
 
 // ════════════════════════════════════════════════════
-// SETTINGS — TEXTOS DO SITE
+// SETTINGS — helpers
 // ════════════════════════════════════════════════════
-async function loadSettings() {
+async function putSettings(body, btnId, label) {
+  const btn = document.getElementById(btnId);
+  btn.disabled = true; btn.textContent = 'Salvando...';
+  try {
+    await api('/api/settings', { method: 'PUT', headers: { 'Content-Type': 'application/json' }, body: JSON.stringify(body) });
+    toast('Salvo com sucesso!');
+  } catch(e) { toast(e.message, 'error'); }
+  finally { btn.disabled = false; btn.textContent = label; }
+}
+
+// ─── Quem Somos ──────────────────────────────────────
+async function loadSettingsSobre() {
+  try {
+    const s = await api('/api/settings');
+    const v = (id, key) => { const el = document.getElementById(id); if (el && s[key] !== undefined) el.value = s[key]; };
+    v('sSobreTitulo','sobre.titulo'); v('sSobreP1','sobre.p1'); v('sSobreP2','sobre.p2'); v('sSobreP3','sobre.p3');
+    v('sStat1n','sobre.stat1.n'); v('sStat1l','sobre.stat1.l');
+    v('sStat2n','sobre.stat2.n'); v('sStat2l','sobre.stat2.l');
+    v('sStat3n','sobre.stat3.n'); v('sStat3l','sobre.stat3.l');
+    v('sStat4n','sobre.stat4.n'); v('sStat4l','sobre.stat4.l');
+    if (s['sobre.foto']) document.getElementById('sobrePhotoPreview').src = '/' + s['sobre.foto'];
+  } catch(e) { toast('Erro ao carregar', 'error'); }
+}
+
+document.getElementById('btnSaveSobre').onclick = () => putSettings({
+  'sobre.titulo': document.getElementById('sSobreTitulo').value.trim(),
+  'sobre.p1':     document.getElementById('sSobreP1').value.trim(),
+  'sobre.p2':     document.getElementById('sSobreP2').value.trim(),
+  'sobre.p3':     document.getElementById('sSobreP3').value.trim(),
+}, 'btnSaveSobre', 'Salvar Textos');
+
+document.getElementById('btnSaveStats').onclick = () => putSettings({
+  'sobre.stat1.n': document.getElementById('sStat1n').value.trim(),
+  'sobre.stat1.l': document.getElementById('sStat1l').value.trim(),
+  'sobre.stat2.n': document.getElementById('sStat2n').value.trim(),
+  'sobre.stat2.l': document.getElementById('sStat2l').value.trim(),
+  'sobre.stat3.n': document.getElementById('sStat3n').value.trim(),
+  'sobre.stat3.l': document.getElementById('sStat3l').value.trim(),
+  'sobre.stat4.n': document.getElementById('sStat4n').value.trim(),
+  'sobre.stat4.l': document.getElementById('sStat4l').value.trim(),
+}, 'btnSaveStats', 'Salvar Estatísticas');
+
+document.getElementById('sobrePhotoInput').addEventListener('change', async function() {
+  const file = this.files[0];
+  if (!file) return;
+  const fd = new FormData();
+  fd.append('foto', file);
+  try {
+    const res = await api('/api/settings/foto', { method: 'POST', body: fd });
+    document.getElementById('sobrePhotoPreview').src = '/' + res.path;
+    toast('Foto atualizada!');
+  } catch(e) { toast(e.message, 'error'); }
+  this.value = '';
+});
+
+// ─── Contato ─────────────────────────────────────────
+async function loadSettingsContato() {
+  try {
+    const s = await api('/api/settings');
+    const v = (id, key) => { const el = document.getElementById(id); if (el && s[key] !== undefined) el.value = s[key]; };
+    v('sCtTelefone','contato.telefone'); v('sCtTelefoneLabel','contato.telefone.label');
+    v('sCtWhatsapp','contato.whatsapp'); v('sCtWhatsappLabel','contato.whatsapp.label');
+    v('sCtWhatsappNumero','contato.whatsapp.numero'); v('sCtWhatsappMsg','contato.whatsapp.msg');
+    v('sCtEmail','contato.email'); v('sCtEmailLabel','contato.email.label');
+    v('sCtEndereco','contato.endereco'); v('sCtEnderecoLabel','contato.endereco.label');
+  } catch(e) { toast('Erro ao carregar', 'error'); }
+}
+
+document.getElementById('btnSaveContato').onclick = () => putSettings({
+  'contato.telefone':         document.getElementById('sCtTelefone').value.trim(),
+  'contato.telefone.label':   document.getElementById('sCtTelefoneLabel').value.trim(),
+  'contato.whatsapp':         document.getElementById('sCtWhatsapp').value.trim(),
+  'contato.whatsapp.label':   document.getElementById('sCtWhatsappLabel').value.trim(),
+  'contato.whatsapp.numero':  document.getElementById('sCtWhatsappNumero').value.trim(),
+  'contato.whatsapp.msg':     document.getElementById('sCtWhatsappMsg').value.trim(),
+  'contato.email':            document.getElementById('sCtEmail').value.trim(),
+  'contato.email.label':      document.getElementById('sCtEmailLabel').value.trim(),
+  'contato.endereco':         document.getElementById('sCtEndereco').value.trim(),
+  'contato.endereco.label':   document.getElementById('sCtEnderecoLabel').value.trim(),
+}, 'btnSaveContato', 'Salvar Contato');
+
+// ─── Seção Projetos ───────────────────────────────────
+async function loadSettingsProjSec() {
   try {
     const s = await api('/api/settings');
     if (s['projetos.hero.title'])    document.getElementById('sProjTitle').value    = s['projetos.hero.title'];
     if (s['projetos.hero.subtitle']) document.getElementById('sProjSubtitle').value = s['projetos.hero.subtitle'];
-  } catch(e) { toast('Erro ao carregar configurações', 'error'); }
+  } catch(e) { toast('Erro ao carregar', 'error'); }
 }
 
 async function saveTexts() {
-  const btn = document.getElementById('btnSaveTexts');
-  btn.disabled = true; btn.textContent = 'Salvando...';
-  try {
-    await api('/api/settings', {
-      method:  'PUT',
-      headers: { 'Content-Type': 'application/json' },
-      body: JSON.stringify({
-        'projetos.hero.title':    document.getElementById('sProjTitle').value.trim(),
-        'projetos.hero.subtitle': document.getElementById('sProjSubtitle').value.trim(),
-      })
-    });
-    toast('Textos salvos com sucesso!');
-  } catch(e) { toast(e.message, 'error'); }
-  finally { btn.disabled = false; btn.textContent = 'Salvar Textos'; }
+  putSettings({
+    'projetos.hero.title':    document.getElementById('sProjTitle').value.trim(),
+    'projetos.hero.subtitle': document.getElementById('sProjSubtitle').value.trim(),
+  }, 'btnSaveTexts', 'Salvar');
 }
 
 document.getElementById('btnSaveTexts').onclick = saveTexts;
-
-// carrega settings quando entrar na aba
-const origSettingsNav = document.querySelector('.nav-link[data-page="settings"]');
-origSettingsNav.addEventListener('click', loadSettings);
 
 // ════════════════════════════════════════════════════
 // INIT

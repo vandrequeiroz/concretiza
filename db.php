@@ -53,6 +53,31 @@ function getDb() {
     $defaults = [
         'projetos.hero.title'    => 'Nossos Projetos',
         'projetos.hero.subtitle' => 'Conheça o portfólio completo da Concretiza Engenharia — projetos residenciais, comerciais, industriais e muito mais.',
+        // Quem Somos
+        'sobre.titulo'   => 'Sobre a Concretiza',
+        'sobre.p1'       => 'Empresa fundada em 2005, atua na área da construção civil, industrial, comercial e residencial. Busca constantemente a realização de trabalhos de alta qualidade de modo a superar as expectativas de nossos clientes e parceiros de negócios.',
+        'sobre.p2'       => 'Atendemos com soluções confiáveis desde a geração de desenhos, especificações técnicas e lista de materiais até informações precisas das etapas do empreendimento.',
+        'sobre.p3'       => 'A CONCRETIZA tem a constante preocupação em manter sua equipe treinada e estruturada, buscando inovações e tecnologia para oferecer excelência em sua prestação de serviços.',
+        'sobre.stat1.n'  => '+19',
+        'sobre.stat1.l'  => 'Anos de Mercado',
+        'sobre.stat2.n'  => '+100',
+        'sobre.stat2.l'  => 'Projetos Entregues',
+        'sobre.stat3.n'  => '4',
+        'sobre.stat3.l'  => 'Áreas de Atuação',
+        'sobre.stat4.n'  => '100%',
+        'sobre.stat4.l'  => 'Comprometimento',
+        'sobre.foto'     => 'imagens/concre_escritorio.jpg',
+        // Contato
+        'contato.telefone'         => '(11) 4712-8099',
+        'contato.telefone.label'   => 'Telefone Fixo — Seg a Sex, 8h às 18h',
+        'contato.whatsapp'         => '(11) 9 6375-4627',
+        'contato.whatsapp.label'   => 'WhatsApp — Atendimento rápido',
+        'contato.whatsapp.numero'  => '5511963754627',
+        'contato.whatsapp.msg'     => 'Olá! Gostaria de solicitar um orçamento.',
+        'contato.email'            => 'projetos@concretizaengenharia.com.br',
+        'contato.email.label'      => 'Respondemos em até 24h',
+        'contato.endereco'         => 'Praça da República, 189 — Centro',
+        'contato.endereco.label'   => 'São Roque/SP — Visitas com agendamento',
     ];
     $ins = $pdo->prepare('INSERT OR IGNORE INTO settings (key,value) VALUES (?,?)');
     foreach ($defaults as $k => $v) $ins->execute([$k, $v]);
