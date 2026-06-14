@@ -491,6 +491,8 @@ a     { text-decoration: none; color: inherit; }
 .ct-info h3    { color: #fff; font-size: 19px; font-weight: 700; font-family: var(--font); margin-bottom: 8px; }
 .ct-info > p   { color: rgba(255,255,255,.48); font-size: 13.5px; line-height: 1.75; margin-bottom: 36px; font-family: var(--font); }
 
+.ct-info-only  { max-width: 520px; margin: 48px auto 0; }
+
 .ct-det { display: flex; align-items: center; gap: 15px; padding: 16px 0; border-bottom: 1px solid rgba(255,255,255,.07); }
 .ct-det:last-of-type { border-bottom: none; }
 .ct-det i        { color: var(--green-a); font-size: 17px; width: 22px; }
