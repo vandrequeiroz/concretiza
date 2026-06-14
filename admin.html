@@ -266,6 +266,29 @@
     .toast.success { background: var(--green); }
     .toast.error   { background: var(--danger); }
 
+    /* icon picker */
+    .icon-picker-overlay { display:none; position:fixed; inset:0; background:rgba(0,0,0,.45); z-index:400; align-items:center; justify-content:center; }
+    .icon-picker-overlay.open { display:flex; }
+    .icon-picker-box { background:#fff; border-radius:10px; width:min(640px,95vw); max-height:80vh; display:flex; flex-direction:column; box-shadow:0 24px 64px rgba(0,0,0,.22); animation:modalIn .2s cubic-bezier(.22,1,.36,1); }
+    .icon-picker-head { padding:18px 20px 14px; border-bottom:1px solid var(--border); display:flex; align-items:center; gap:12px; }
+    .icon-picker-head h3 { font-size:14px; font-weight:700; flex:1; }
+    .icon-picker-search { flex:1; border:1px solid var(--border); border-radius:var(--radius); padding:7px 11px; font-size:13px; font-family:var(--font); outline:none; }
+    .icon-picker-search:focus { border-color:var(--green); }
+    .icon-picker-grid { display:grid; grid-template-columns:repeat(auto-fill,minmax(60px,1fr)); gap:4px; padding:14px; overflow-y:auto; flex:1; }
+    .icon-btn { display:flex; flex-direction:column; align-items:center; gap:5px; padding:10px 4px; border:1px solid transparent; border-radius:var(--radius); cursor:pointer; background:none; transition:background .15s,border-color .15s; }
+    .icon-btn:hover  { background:var(--bg); border-color:var(--border); }
+    .icon-btn.active { background:#e8f5ec; border-color:var(--green); }
+    .icon-btn i  { font-size:20px; color:var(--txt); }
+    .icon-btn span { font-size:9px; color:var(--txt-m); text-align:center; line-height:1.3; overflow:hidden; text-overflow:ellipsis; white-space:nowrap; max-width:56px; }
+    .icon-picker-close { background:none; border:none; cursor:pointer; color:var(--txt-m); padding:4px; border-radius:4px; display:flex; }
+    .icon-picker-close:hover { color:var(--txt); }
+    /* icon field button */
+    .icon-field-btn { display:flex; align-items:center; gap:8px; border:1px solid var(--border); border-radius:var(--radius); padding:8px 12px; background:#fff; cursor:pointer; width:100%; transition:border-color .2s; }
+    .icon-field-btn:hover { border-color:var(--green); }
+    .icon-field-btn i { font-size:18px; color:var(--green); width:22px; text-align:center; }
+    .icon-field-btn span { font-size:12.5px; color:var(--txt-m); flex:1; text-align:left; }
+    .icon-field-btn .chg { font-size:11px; color:var(--green); font-weight:600; }
+
     /* confirm */
     .confirm-overlay { display: none; position: fixed; inset: 0; background: rgba(0,0,0,.5); z-index: 300; align-items: center; justify-content: center; }
     .confirm-overlay.open { display: flex; }
@@ -594,6 +617,20 @@
       <button class="btn-secondary" id="confirmCancel">Cancelar</button>
       <button class="btn-danger"    id="confirmOk">Excluir</button>
     </div>
+  </div>
+</div>
+
+<!-- ICON PICKER -->
+<div class="icon-picker-overlay" id="iconPickerOverlay">
+  <div class="icon-picker-box">
+    <div class="icon-picker-head">
+      <h3>Escolher Ícone</h3>
+      <input class="icon-picker-search" id="iconSearch" type="text" placeholder="Buscar ícone...">
+      <button class="icon-picker-close" onclick="closeIconPicker()">
+        <svg xmlns="http://www.w3.org/2000/svg" fill="none" stroke="currentColor" stroke-width="2" viewBox="0 0 24 24" width="18" height="18"><line x1="18" y1="6" x2="6" y2="18"/><line x1="6" y1="6" x2="18" y2="18"/></svg>
+      </button>
+    </div>
+    <div class="icon-picker-grid" id="iconGrid"></div>
   </div>
 </div>
 
@@ -1098,6 +1135,107 @@ document.getElementById('btnSaveContato').onclick = () => putSettings({
   'contato.endereco.label':   document.getElementById('sCtEnderecoLabel').value.trim(),
 }, 'btnSaveContato', 'Salvar Contato');
 
+// ════════════════════════════════════════════════════
+// ICON PICKER
+// ════════════════════════════════════════════════════
+const FA_ICONS = [
+  // Construção & Engenharia
+  ['fas fa-hard-hat','capacete'],['fas fa-tools','ferramentas'],['fas fa-wrench','chave'],
+  ['fas fa-hammer','martelo'],['fas fa-drafting-compass','compasso'],['fas fa-ruler','régua'],
+  ['fas fa-ruler-combined','régua combinada'],['fas fa-building','prédio'],['fas fa-city','cidade'],
+  ['fas fa-home','casa'],['fas fa-warehouse','galpão'],['fas fa-industry','fábrica'],
+  ['fas fa-paint-roller','rolo tinta'],['fas fa-brush','pincel'],['fas fa-vector-square','vetor'],
+  ['fas fa-layer-group','camadas'],['fas fa-cube','cubo'],['fas fa-cubes','cubos'],
+  ['fas fa-project-diagram','diagrama'],['fas fa-sitemap','organograma'],
+  // Qualidade & Prêmios
+  ['fas fa-certificate','certificado'],['fas fa-star','estrela'],['fas fa-award','prêmio'],
+  ['fas fa-trophy','troféu'],['fas fa-medal','medalha'],['fas fa-check-circle','check'],
+  ['fas fa-thumbs-up','curtir'],['fas fa-crown','coroa'],['fas fa-gem','gema'],
+  ['fas fa-ribbon','fita'],['fas fa-handshake','aperto de mão'],
+  // Equipe & Pessoas
+  ['fas fa-users','usuários'],['fas fa-user','usuário'],['fas fa-user-tie','executivo'],
+  ['fas fa-user-hard-hat','operário'],['fas fa-hands-helping','ajuda'],
+  ['fas fa-people-carry','carregar'],['fas fa-chalkboard-teacher','professor'],
+  // Tempo & Planejamento
+  ['fas fa-clock','relógio'],['fas fa-calendar','calendário'],['fas fa-calendar-check','agenda ok'],
+  ['fas fa-hourglass-half','ampulheta'],['fas fa-stopwatch','cronômetro'],
+  ['fas fa-tasks','tarefas'],['fas fa-clipboard-check','checklist'],['fas fa-clipboard-list','lista'],
+  // Meio Ambiente & Segurança
+  ['fas fa-leaf','folha'],['fas fa-tree','árvore'],['fas fa-recycle','reciclar'],
+  ['fas fa-shield-alt','escudo'],['fas fa-exclamation-triangle','alerta'],
+  ['fas fa-first-aid','primeiros socorros'],['fas fa-hard-hat','capacete'],['fas fa-fire-extinguisher','extintor'],
+  ['fas fa-sun','sol'],['fas fa-wind','vento'],['fas fa-water','água'],
+  // Negócios & Finanças
+  ['fas fa-chart-line','gráfico linha'],['fas fa-chart-bar','gráfico barra'],['fas fa-coins','moedas'],
+  ['fas fa-file-contract','contrato'],['fas fa-file-signature','assinar'],['fas fa-receipt','recibo'],
+  ['fas fa-piggy-bank','poupança'],['fas fa-briefcase','maleta'],['fas fa-handshake','parceria'],
+  // Comunicação
+  ['fas fa-phone','telefone'],['fas fa-phone-alt','telefone alt'],['fas fa-envelope','email'],
+  ['fas fa-map-marker-alt','localização'],['fas fa-comments','comentários'],
+  ['fas fa-bullhorn','megafone'],['fas fa-bell','sino'],['fas fa-share-alt','compartilhar'],
+  // Técnico
+  ['fas fa-bolt','raio'],['fas fa-fire','fogo'],['fas fa-cog','engrenagem'],
+  ['fas fa-cogs','engrenagens'],['fas fa-microchip','chip'],['fas fa-wifi','wifi'],
+  ['fas fa-plug','tomada'],['fas fa-lightbulb','lâmpada'],['fas fa-drafting-compass','compasso'],
+  // Misc
+  ['fas fa-rocket','foguete'],['fas fa-magic','magia'],['fas fa-globe','globo'],
+  ['fas fa-heart','coração'],['fas fa-infinity','infinito'],['fas fa-flag','bandeira'],
+  ['fas fa-map','mapa'],['fas fa-compass','bússola'],['fas fa-search','busca'],
+  ['fas fa-lock','cadeado'],['fas fa-key','chave'],['fas fa-link','link'],
+  ['fas fa-plus-circle','mais'],['fas fa-arrow-right','seta'],['fas fa-check','check simples'],
+];
+
+let _pickerTarget = null;
+
+function openIconPicker(btnId, currentClass) {
+  _pickerTarget = btnId;
+  const overlay = document.getElementById('iconPickerOverlay');
+  overlay.classList.add('open');
+  document.getElementById('iconSearch').value = '';
+  renderIconGrid(currentClass, '');
+  document.getElementById('iconSearch').focus();
+}
+
+function closeIconPicker() {
+  document.getElementById('iconPickerOverlay').classList.remove('open');
+  _pickerTarget = null;
+}
+
+function renderIconGrid(activeClass, filter) {
+  const grid = document.getElementById('iconGrid');
+  const q = filter.toLowerCase();
+  const filtered = FA_ICONS.filter(([cls, label]) => !q || cls.includes(q) || label.includes(q));
+  grid.innerHTML = '';
+  filtered.forEach(([cls, label]) => {
+    const btn = document.createElement('button');
+    btn.className = 'icon-btn' + (cls === activeClass ? ' active' : '');
+    btn.title = cls;
+    btn.innerHTML = `<i class="${cls}"></i><span>${label}</span>`;
+    btn.onclick = () => selectIcon(cls);
+    grid.appendChild(btn);
+  });
+  if (!filtered.length) grid.innerHTML = '<p style="grid-column:1/-1;text-align:center;color:var(--txt-m);padding:32px;font-size:13px">Nenhum ícone encontrado</p>';
+}
+
+function selectIcon(cls) {
+  if (!_pickerTarget) return;
+  const btn = document.getElementById(_pickerTarget);
+  if (btn) {
+    btn.querySelector('i').className = cls;
+    btn.querySelector('span').textContent = cls;
+    btn.dataset.icon = cls;
+  }
+  closeIconPicker();
+}
+
+document.getElementById('iconSearch').addEventListener('input', function() {
+  const active = _pickerTarget ? (document.getElementById(_pickerTarget)?.dataset.icon || '') : '';
+  renderIconGrid(active, this.value);
+});
+document.getElementById('iconPickerOverlay').addEventListener('click', e => {
+  if (e.target === e.currentTarget) closeIconPicker();
+});
+
 // ─── Diferenciais ────────────────────────────────────
 const DIF_LABELS = ['Qualidade Garantida','Prazo no Cronograma','Equipe Especializada','Transparência Total','Sustentabilidade','Segurança em Obra'];
 
@@ -1107,23 +1245,30 @@ async function loadSettingsDif() {
     const grid = document.getElementById('difCardsAdmin');
     grid.innerHTML = '';
     [1,2,3,4,5,6].forEach(n => {
+      const cls   = s[`dif${n}.icone`] || 'fas fa-star';
+      const titulo = (s[`dif${n}.titulo`]||'').replace(/"/g,'&quot;');
+      const texto  = s[`dif${n}.texto`] || '';
       const card = document.createElement('div');
       card.style.cssText = 'background:#fff;border:1px solid var(--border);border-radius:var(--radius);padding:20px';
       card.innerHTML = `
-        <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Card ${n} — ${DIF_LABELS[n-1]}</p>
-        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px">
+        <p style="font-size:12px;font-weight:700;color:var(--txt-m);text-transform:uppercase;letter-spacing:.8px;margin-bottom:14px">Card ${n}</p>
+        <div style="display:grid;grid-template-columns:1fr 1fr;gap:12px;align-items:end">
           <div class="form-group" style="margin-bottom:0">
             <label>Título</label>
-            <input type="text" id="dif${n}TituloAdmin" value="${(s[`dif${n}.titulo`]||'').replace(/"/g,'&quot;')}">
+            <input type="text" id="dif${n}TituloAdmin" value="${titulo}">
           </div>
           <div class="form-group" style="margin-bottom:0">
-            <label>Ícone <span style="font-weight:400;color:var(--txt-m)">(classe Font Awesome)</span></label>
-            <input type="text" id="dif${n}IconeAdmin" value="${(s[`dif${n}.icone`]||'').replace(/"/g,'&quot;')}" placeholder="fas fa-certificate">
+            <label>Ícone</label>
+            <button type="button" class="icon-field-btn" id="dif${n}IconeBtn" data-icon="${cls}" onclick="openIconPicker('dif${n}IconeBtn','${cls}')">
+              <i class="${cls}"></i>
+              <span>${cls}</span>
+              <em class="chg">Trocar</em>
+            </button>
           </div>
         </div>
         <div class="form-group" style="margin-top:12px;margin-bottom:0">
           <label>Texto</label>
-          <textarea id="dif${n}TextoAdmin" rows="2">${s[`dif${n}.texto`]||''}</textarea>
+          <textarea id="dif${n}TextoAdmin" rows="2">${texto}</textarea>
         </div>`;
       grid.appendChild(card);
     });
@@ -1134,7 +1279,7 @@ document.getElementById('btnSaveDif').onclick = () => {
   const body = {};
   [1,2,3,4,5,6].forEach(n => {
     body[`dif${n}.titulo`] = document.getElementById(`dif${n}TituloAdmin`).value.trim();
-    body[`dif${n}.icone`]  = document.getElementById(`dif${n}IconeAdmin`).value.trim();
+    body[`dif${n}.icone`]  = document.getElementById(`dif${n}IconeBtn`).dataset.icon || '';
     body[`dif${n}.texto`]  = document.getElementById(`dif${n}TextoAdmin`).value.trim();
   });
   putSettings(body, 'btnSaveDif', 'Salvar Diferenciais');
