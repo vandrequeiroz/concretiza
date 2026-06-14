@@ -16,4 +16,10 @@ Options -Indexes
 
     # route all /api/* requests to api.php
     RewriteRule ^api/(.*)$ api.php [QSA,L]
+
+    # serve .html files without extension
+    RewriteCond %{REQUEST_FILENAME} !-f
+    RewriteCond %{REQUEST_FILENAME} !-d
+    RewriteCond %{REQUEST_FILENAME}.html -f
+    RewriteRule ^(.+)$ $1.html [L]
 </IfModule>
